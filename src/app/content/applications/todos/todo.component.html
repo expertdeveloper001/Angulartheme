@@ -1,0 +1,273 @@
+<div class="app-content content todo">
+  <div class="sidebar-left" id='sidebar-left' fxFlex="auto" [perfectScrollbar]="config">
+    <div class="sidebar">
+      <div class="sidebar-content sidebar-todo">
+        <div class="card">
+          <div class="card-body">
+            <div class="form-group form-group-compose text-center">
+              <button type="button" class="btn btn-info btn-block" (click)="open(content)">
+                Add Task
+              </button>
+              <!-- Modal -->
+
+              <div class="modal fade" id="AddTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <section class="todo-form">
+                      <ng-template #content let-modal>
+                        <form [formGroup]="todo" autocomplete="off" (ngSubmit)="onSubmit()">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add New Task</h5>
+                            <button type="button" class="close" aria-label="Close" (click)="dismissModal()">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="form-group col-12">
+                              <input type="text" id="new-todo-item" formControlName="title" name="title"
+                                class="new-todo-item form-control" placeholder="Todo Title"
+                                [ngClass]="{ 'is-invalid': submitted && add.title.errors }" required>
+                              <div *ngIf="submitted && add.title.errors" class="invalid-feedback">
+                                <div *ngIf="add.title.errors.required">Title is required</div>
+                              </div>
+                            </div>
+                            <div class="form-group col-12">
+                              <select class="custom-select form-control" id="todo-select" formControlName="type"
+                                name="type" (change)="getSelectedTODOTypeText($event)">
+                                <option value="" selected>Select Tag</option>
+                                <option value="warning">Project</option>
+                                <option value="secondary">Product</option>
+                                <option value="primary">Bug</option>
+                                <option value="success">API</option>
+                                <option value="danger">UI</option>
+                              </select>
+                            </div>
+                            <div class="form-group position-relative has-icon-left col-12">
+                              <div class="form-control-position">
+                                <i class="icon-emoticon-smile"></i>
+                              </div>
+                              <input type="text" id="new-todo-desc" formControlName="description" name="description"
+                                class="new-todo-desc form-control" placeholder="Todo Description"
+                                [ngClass]="{ 'is-invalid': submitted && add.description.errors }" required>
+                              <div *ngIf="submitted && add.description.errors" class="invalid-feedback">
+                                <div *ngIf="add.description.errors.required">Description is required</div>
+                              </div>
+                              <div class="form-control-position control-position-right">
+                                <i class="icon-emoticon-smile"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <div class="form-group position-relative has-icon-left mb-0">
+                              <button id="add-todo-item" type="submit" class="btn btn-info add-todo-item">
+                                <i class="la la-paper-plane-o d-lg-none"></i>
+                                <span class="d-none d-lg-block">Add New</span></button>
+                            </div>
+                          </div>
+                        </form>
+                      </ng-template>
+                      <ng-template #editContent let-modal>
+                        <form [formGroup]="todo" autocomplete="off"
+                          (ngSubmit)="onUpdate(selectedItem.id, todo.value)">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+                            <button type="button" class="close" aria-label="Close" (click)="dismissModal()">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="form-group col-12">
+                              <input type="text" id="edit-todo-item" formControlName="title" name="title"
+                                class="edit-todo-item form-control" placeholder="Todo Title"
+                                [ngClass]="{ 'is-invalid': submitted && update.title.errors }" required>
+                              <div *ngIf="submitted && update.title.errors" class="invalid-feedback">
+                                <div *ngIf="update.title.errors.required">Title is required</div>
+                              </div>
+                            </div>
+                            <div class="form-group col-12">
+                              <select class="custom-select form-control" id="todo-select" placeholder="Select Tag"
+                                formControlName="type" name="type" (change)="getSelectedTODOTypeText($event)">
+                                <option value="" selected>Select Tag</option>
+                                <option value="warning">Project</option>
+                                <option value="secondary">Product</option>
+                                <option value="primary">Bug</option>
+                                <option value="success">API</option>
+                                <option value="danger">UI</option>
+                              </select>
+                            </div>
+                            <div class="form-group position-relative has-icon-left col-12">
+                              <div class="form-control-position">
+                                <i class="icon-emoticon-smile"></i>
+                              </div>
+                              <input type="text" id="edit-todo-desc" formControlName="description" name="description"
+                                class="edit-todo-desc form-control" placeholder="Todo Description"
+                                [ngClass]="{ 'is-invalid': submitted && update.description.errors }" required>
+                              <div *ngIf="submitted && update.description.errors" class="invalid-feedback">
+                                <div *ngIf="update.description.errors.required">Description is required</div>
+                              </div>
+                              <div class="form-control-position control-position-right">
+                                <i class="icon-emoticon-smile"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <div class="form-group position-relative has-icon-left mb-0">
+                              <button type="submit" id="edit-todo-item" class="btn btn-info edit-todo-item"
+                                data-dismiss="modal"><i class="la la-paper-plane-o d-lg-none"></i>
+                                <span class="d-none d-lg-block">Update</span></button>
+                            </div>
+                          </div>
+                        </form>
+                      </ng-template>
+                    </section>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <h6 class="text-muted text-bold-500 my-1">Messages</h6>
+            <div class="list-group list-group-messages">
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="icon-home mr-1"></i>
+                <span>Home</span>
+              </a>
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="icon-list mr-1"></i>
+                <span>My Tasks</span><span class="badge badge-secondary badge-pill float-right">8</span>
+              </a>
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="icon-bell mr-1"></i>
+                <span>Inbox</span>
+                <span class="badge badge-danger badge-pill float-right">3</span> </a>
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="icon-screen-desktop mr-1"></i>
+                <span>Dashboard</span>
+              </a>
+            </div>
+            <h6 class="text-muted text-bold-500 my-1">Filters</h6>
+            <div class="list-group list-group-messages">
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="icon-star mr-1"></i>
+                <span>Starred</span>
+              </a>
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="icon-energy mr-1"></i>
+                <span>Priority</span>
+              </a>
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="icon-clock mr-1"></i>
+                <span>Scheduled</span>
+              </a>
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="icon-calendar mr-1"></i>
+                <span>Today</span>
+              </a>
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="icon-check mr-1"></i>
+                <span>Completed</span>
+              </a>
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="icon-close mr-1"></i>
+                <span>Deleted</span>
+              </a>
+            </div>
+            <h6 class="text-muted text-bold-500 my-1">Tags</h6>
+            <div class="list-group list-group-messages">
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="feather ft-circle mr-1 warning"></i>
+                <span> Project </span> <span class="badge badge-warning badge-pill float-right">5</span>
+              </a>
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="feather ft-circle mr-1 secondary"></i>
+                <span> Product </span> <span class="badge badge-secondary badge-pill float-right">1</span>
+              </a>
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="feather ft-circle mr-1 primary"></i>
+                <span> Bug </span> <span class="badge badge-primary badge-pill float-right">2</span>
+              </a>
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="feather ft-circle mr-1 success"></i>
+                <span> API </span> <span class="badge badge-success badge-pill float-right">3</span>
+              </a>
+              <a [routerLink]="" class="list-group-item list-group-item-action border-0">
+                <i class="feather ft-circle mr-1 danger"></i>
+                <span> UI </span> <span class="badge badge-danger badge-pill float-right">1</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-right">
+    <div class="content-wrapper">
+      <div class="content-header row mb-1">
+      </div>
+      <div class="content-body">
+        <div class="content-overlay" id='content-overlay' (click)="contentOverlay($event)"></div>
+        <div class="card todo-details rounded-0">
+          <div class="sidebar-toggle d-block d-lg-none"><i class="feather ft-menu font-large-1"
+              (click)="sidebar($event)"></i>
+          </div>
+          <div class="search">
+            <input id="basic-search" type="text" name="search" (keyup)="search($event)" placeholder="Search here..."
+              class="basic-search">
+            <i class="feather ficon ft-search"></i>
+          </div>
+          <div class="card-content" fxFlex="auto" [perfectScrollbar]="config">
+            <div class="card-body">
+              <div class="loader-wrapper" *ngIf="loader">
+                <div class="loader-container">
+                  <div class="ball-spin-fade-loader loader-blue">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
+              <form id="form-todo-list" *ngIf="!loader">
+                <div id="todo-list" class="todo-list media-list media-bordered">
+                  <div class="todo-item media" [ngClass]="{'completed': item.completed}"
+                    *ngFor="let item of todos; let i = index">
+                    <div class="media-left custom-control custom-checkbox pr-1">
+                      <input type="checkbox" [checked]="item.completed" (change)="completeTODO(item, $event)" name='todo-item-done'
+                        class='todo-item-done custom-control-input' id="todo-item-done{{i}}" />
+                      <label class="custom-control-label" for="todo-item-done{{i}}"></label>
+                    </div>
+                    <div class="media-body">
+                      <div class="todo-title">
+                        {{item.title}}
+                        <div class="float-right">
+                          <span class="mr-2 badge badge-{{item.type}}">{{item.badge}}</span>
+                          <a [routerLink]="" class='mr-1 todo-item-edit' (click)="editModal(editContent,item)"><i
+                              class="la la-edit "></i></a>
+                          <a [routerLink]="" class='todo-item-delete' (click)="onDelete(item.id)"><i
+                              class="la la-trash"></i></a>
+                        </div>
+                      </div>
+                      <span class="todo-desc">{{item.description}}</span>
+                    </div>
+                  </div>
+
+                  <div class="todo-item no-result text-center media no-items">
+                    <div class="media-body">
+                      <div class="todo-title">
+                        No items found
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

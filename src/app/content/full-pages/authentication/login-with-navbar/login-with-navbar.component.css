@@ -1,0 +1,7 @@
+html body {
+  height: fit-content !important;
+}
+
+.content-wrapper {
+  padding: 2.2rem !important;
+}

@@ -1,0 +1,273 @@
+<div class="app-content content">
+  <div class="content-wrapper">
+    <div class="content-header row mb-1">
+      <app-breadcrumb class="col-12" [breadcrumb]="breadcrumb"></app-breadcrumb>
+    </div>
+    <div class="content-body">
+      <!-- Basic Usage -->
+      <section id="basic-usage" class="row">
+        <div class="col-12" *blockUI="'basicUsage'; message: 'Loading'">
+          <m-card [options]="options" (reloadFunction)="reloadBasicUsage($event)">
+            <ng-container mCardHeaderTitle>
+              Basic Usage
+            </ng-container>
+            <ng-container mCardBody>
+              <p>First You will need to include the prism.css and prism.js files,
+                In <code>appearance-syntax-highlighter.pug</code>file has included.</p>
+              <p>Prism does its best to encourage good authoring practices. Therefore,
+                it only works with <code>&lt;code&gt;
+</code>elements,
+                since marking up code without a <code>&lt;code&gt;
+</code>element is semantically invalid. <a
+                  href="http://www.w3.org/TR/html5/text-level-semantics.html#the-code-element">According
+                  to the HTML5 spec</a>,
+                the recommended way to define a code language is a <code>language-xxxx</code>class,
+                which is what Prism uses. To make things easier however,
+                Prism assumes that this language definition is inherited. Therefore,
+                if multiple <code>&lt;code&gt;
+</code>elements have the same language,
+                you can add the <code>language-xxxx</code>class on one of their common ancestors.
+                This way,
+                you can also define a document-wide default language,
+                by adding a <code>language-xxxx</code>class on the <code>&lt;body&gt;
+</code>or <code>&lt;html&gt;
+</code>element. </p>
+              <p>If you want to opt-out of highlighting for a <code>&lt;code&gt;
+</code>element that is a descendant of an element with a declared code language,
+                you can add the class <code>language-none</code>to it (or any non-existing language,
+                really).</p>
+              <p>The <a href="https://www.w3.org/TR/html5/grouping-content.html#the-pre-element">recommended
+                  way to mark up a code block</a>(both for semantics and for Prism) is a <code>&lt;pre&gt;
+</code>element with a <code>&lt;code&gt;
+</code>element inside,
+                like so:</p>
+              <p>Code:</p>
+
+             <pre><code [highlight]="basicUsageContent1" [lineNumbers]="true">
+
+              </code></pre>
+              <p>Output</p>
+             <pre><code [highlight]="basicUsageContent2" [lineNumbers]="true">
+
+              </code></pre>
+
+              <p>If you use that pattern,
+                the <code>&lt;pre&gt;
+</code>will automatically get the <code>language-xxxx</code>class (if it doesn't already have it) and will be styled as
+                a code block.</p>
+            </ng-container>
+          </m-card>
+        </div>
+      </section>
+      <!--/ Basic Usage -->
+      <!-- Examples -->
+      <section id="examples" class="row">
+        <div class="col-12" *blockUI="'examples'; message: 'Loading'">
+          <m-card [options]="options" (reloadFunction)="reloadExamples($event)">
+            <ng-container mCardHeaderTitle>
+              Examples
+            </ng-container>
+            <ng-container mCardBody>
+              <h5 class="card-title">HTML Markup</h5>
+              <p>Use the following code to use HTML syntax highlighter.</p>
+              <p class="text-bold-800">Usage:</p>
+
+             <pre><code [highlight]="examplesHtmlContent1" [lineNumbers]="true">
+
+              </code></pre>
+              <p class="text-bold-800">Example:</p>
+
+             <pre><code [highlight]="examplesHtmlContent2" [lineNumbers]="true">
+
+              </code></pre>
+            </ng-container>
+            <ng-container mCardBody>
+              <h5 class="card-title">CSS Markup</h5>
+              <p>Use the following code to use HTML syntax highlighter.</p>
+              <p class="text-bold-800">Usage:</p>
+
+             <pre><code [highlight]="examplesCssContent1" [lineNumbers]="true">
+
+              </code></pre>
+              <p class="text-bold-800">Example:</p>
+
+             <pre><code [highlight]="examplesCssContent2" [lineNumbers]="true">
+
+              </code></pre>
+            </ng-container>
+            <ng-container mCardBody>
+              <h5 class="card-title">JS Markup</h5>
+              <p>Use the following code to use HTML syntax highlighter.</p>
+              <p class="text-bold-800">Usage:</p>
+
+             <pre><code [highlight]="examplesJsContent1" [lineNumbers]="true">
+
+              </code></pre>
+
+              <p class="text-bold-800">Example:</p>
+
+             <pre><code [highlight]="examplesJsContent2" [lineNumbers]="true">
+
+              </code></pre>
+            </ng-container>
+          </m-card>
+        </div>
+      </section>
+      <!--/ Examples -->
+      <!-- Line Numbers -->
+      <section id="line-numbers" class="row">
+        <div class=" col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Line Numbers</h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <p>Line number at the beginning of code lines.</p>
+                <p>Obviously, this is supposed to work only for code blocks (<code>&lt;pre&gt;
+&lt;code&gt;
+</code>) and not for inline code. Add class line-numbers to your desired <code>&lt;pre&gt;
+</code> and line-numbers plugin will take care.</p>
+                <p>Optional: You can specify the data-start (Number) attribute on the <code>&lt;pre&gt;
+</code> element. It will shift the line counter.</p>
+                <p class="text-bold-800">Usage:</p>
+
+               <pre><code [highlight]="lineNumbersContent1" [lineNumbers]="true">
+
+                </code></pre>
+
+                <p class="text-bold-800">Example:</p>
+
+               <pre><code [highlight]="lineNumbersContent2" [lineNumbers]="true">
+
+                </code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--/ Line Numbers -->
+      <!-- Line highlight -->
+      <section id="line-highlight" class="row">
+        <div class=" col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Line highlight</h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <p>Highlights specific lines and/or line ranges.</p>
+                <p>You specify the lines to be highlighted through the <em>data-line</em> attribute on
+                  the <code>&lt;pre&gt;
+</code> element, in the following simple format:</p>
+                <ul>
+                  <li>A single number refers to the line with that number</li>
+                  <li>Ranges are denoted by two numbers, separated with a hyphen (-)</li>
+                  <li>Multiple line numbers or ranges are separated by commas.</li>
+                  <li>Whitespace is allowed anywhere and will be stripped off.</li>
+                </ul>
+                <p class="text-bold-800">Usage:</p>
+
+               <pre><code [highlight]="LineHighlightContent1" [lineNumbers]="true">
+
+                </code></pre>
+                <p class="text-bold-800">Example:</p>
+
+               <pre><code [highlight]="LineHighlightContent2" [lineNumbers]="true">
+
+                </code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--/ Line highlight -->
+      <!-- Autolinker -->
+      <section id="autolinker" class="row">
+        <div class=" col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Autolinker</h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <p>Converts URLs and emails in code to clickable links. <a>Parses Markdown</a>
+                  links in comments.</p>
+                <p>URLs and emails will be linked automatically, you don’t need to do anything. To link
+                  some text inside a comment to a certain URL, you may use the Markdown syntax:</p>
+                <p class="text-bold-800">Usage:</p>
+
+               <pre><code [highlight]="autoLinkerContent1" [lineNumbers]="true">
+
+                </code></pre>
+
+                <p class="text-bold-800">Example:</p>
+
+               <pre><code [highlight]="autoLinkerContent2" [lineNumbers]="true">
+
+                </code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--/ Autolinker -->
+      <!-- Show Invisibles -->
+      <section id="show-invisibles" class="row">
+        <div class=" col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Show Invisibles</h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <p>Show hidden characters such as tabs and line breaks.</p>
+                <p class="text-bold-800">Example:</p>
+
+               <pre><code [highlight]="showInvisiblesContent" [lineNumbers]="true">
+
+                </code></pre>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--/ Show Invisibles -->
+      <!-- File Highlight -->
+      <section id="file-highlight" class="row">
+        <div class=" col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">File Highlight</h4>
+
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <p>Fetch external files and highlight them with Prism. Used on the Prism website itself.
+                </p>
+                <p>Use the <em>data-src</em> attribute on empty <code>&lt;pre&gt;
+</code> elements, like so:</p>
+                <p class="text-bold-800">Usage:</p>
+
+               <pre><code [highlight]="fileHighlightContent1" [lineNumbers]="true">
+
+                </code></pre>
+
+                <p>You don’t need to specify the language, it’s automatically determined by the file
+                  extension. If, however, the language cannot be determined from the file extension or
+                  the file extension is incorrect, you may specify a language as well (with the usual
+                  class name way).</p>
+                <p>Please note that the files are fetched with XMLHttpRequest. This means that if the
+                  file is on a different origin, fetching it will fail, unless CORS is enabled on that
+                  website.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--/ File Highlight -->
+    </div>
+  </div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->

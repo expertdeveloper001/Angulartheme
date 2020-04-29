@@ -1,0 +1,14 @@
+:host ::ng-deep .block-ui-wrapper {
+    background: rgba(255, 249, 249, 0.5) !important;
+}
+
+:host ::ng-deep .card .card {
+  margin-bottom: auto;
+}
+:host ::ng-deep .my-gallery img{
+  height: 168px;
+  margin-right: 1px;
+  margin-left: 1px;
+ 
+}
+
