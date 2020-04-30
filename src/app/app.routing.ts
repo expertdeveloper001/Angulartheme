@@ -44,18 +44,7 @@ const appRoutes: Routes = [
       { path: 'changelog', component: ChangelogComponent, canActivate: [AuthGuard] },
       { path: 'dashboard', loadChildren: () => import('../app/content/dashboard/dashboard.module').then(m => m.DashboardModule),
        canActivate: [AuthGuard] },
-	  {
-        path: 'users', loadChildren: () => import('../app/content/users/users.module').then(m => m.UsersModule),
-        canActivate: [AuthGuard]
-      },
-	  {
-        path: 'products', loadChildren: () => import('../app/content/products/products.module').then(m => m.ProductsModule),
-        canActivate: [AuthGuard]
-      },
       {
-        path: 'bulk', loadChildren: () => import('../app/content/bulkimport/bulkimport.module').then(m => m.BulkimportModule),
-      },
-	  {
         path: 'components', loadChildren: () => import('../app/content/ngbbootstrap/components.module').then(m => m.ComponentsModule),
         canActivate: [AuthGuard]
       },

@@ -29,8 +29,8 @@ export const MenuSettingsConfig: MenuConfig = {
       {
         title: 'Dashboard',
         icon: 'la-home',
-        page: '/dashboard/sales',
-        /*badge: { type: 'badge-info', value: '12' },
+        page: 'null',
+        badge: { type: 'badge-info', value: '12' },
         submenu: {
           items: [
             {
@@ -44,9 +44,9 @@ export const MenuSettingsConfig: MenuConfig = {
               page: '/dashboard/ecommerce'
             },
           ]
-        }*/
+        }
       },
-      /*{
+      {
         title: 'Templates',
         icon: 'la-television',
         page: 'null',
@@ -62,29 +62,24 @@ export const MenuSettingsConfig: MenuConfig = {
             },
           ]
         }
-      },*/
+      },
       {
         title: 'APPS',
         icon: 'la-mobile',
         page: 'null',
         submenu: {
           items: [
-            /*{
+            {
               title: 'ToDo',
               icon: 'la-edit',
               page: '/todos'
-            },*/
+            },
             {
-              title: 'Users',
+              title: 'Contacts',
               icon: 'la-users',
               page: '/contacts'
             },
-			{
-			  title: 'Products',
-			  icon: 'la-save',
-			  page: '/datatables/styling'
-			},
-            /*{
+            {
               title: 'Email Application',
               icon: 'la-envelope',
               page: '/email'
@@ -115,11 +110,11 @@ export const MenuSettingsConfig: MenuConfig = {
                   },
                 ]
               }
-            },*/
+            },
           ]
         }
       },
-      /*{
+      {
         title: 'Pages',
         icon: 'la-file-text',
         page: 'null',
@@ -867,7 +862,7 @@ export const MenuSettingsConfig: MenuConfig = {
             }
           ]
         }
-      }*/
+      }
     ]
   },
   vertical_menu: {
@@ -875,8 +870,8 @@ export const MenuSettingsConfig: MenuConfig = {
       {
         title: 'Dashboard',
         icon: 'la-home',
-        page: '/dashboard',
-        /*badge: { type: 'badge-info', value: '2' },
+        page: 'null',
+        badge: { type: 'badge-info', value: '2' },
         submenu: {
           items: [
            {
@@ -888,9 +883,9 @@ export const MenuSettingsConfig: MenuConfig = {
               page: '/dashboard/ecommerce'
             },
           ]
-        }*/
+        }
       },
-      /*{
+      {
         title: 'Templates',
         icon: 'la-television',
         page: 'null',
@@ -906,69 +901,19 @@ export const MenuSettingsConfig: MenuConfig = {
             },
           ]
         }
-      },*/
+      },
       { section: 'APPS', icon: 'la-ellipsis-h' },
-      /*{
+      {
         title: 'ToDo',
         icon: 'la-edit',
         page: '/todos'
-      },*/
-      {
-		title: 'Users',
-		icon: 'la-users',
-		page: '/users'
-	  },
-	  {
-		title: 'Products',
-		icon: 'la-save',
-		page: '/products'
-	  },
-	  {
-        title: 'Bulk Insert',
-        icon: 'la-life-saver',
-        page: 'null',
-        submenu: {
-          items: [
-           {
-              title: 'Inventory',
-              page: '/bulk/inventory'
-            },
-            {
-              title: 'Price',
-              page: '/bulk/price'
-            },
-            {
-              title: 'Customers',
-              page: '/bulk/customers'
-            },
-            {
-              title: 'SalesPerson',
-              page: '/bulk/salesperson'
-            },
-			{
-              title: 'Manager',
-              page: '/bulk/manager'
-            },
-			{
-              title: 'Mapped Customer',
-              page: '/bulk/mappedcustomer'
-            },
-			{
-              title: 'Assets',
-              page: '/bulk/assets'
-            },
-			{
-              title: 'New Specials',
-              page: '/bulk/new-specials'
-            },
-			{
-              title: 'Manage image sequence',
-              page: '/bulk/manage-image-sequence'
-            },
-          ]
-        }
       },
-      /*{
+      {
+        title: 'Contacts',
+        icon: 'la-users',
+        page: '/contacts'
+      },
+      {
         title: 'Email Application',
         icon: 'la-envelope',
         page: '/email'
@@ -1692,7 +1637,7 @@ export const MenuSettingsConfig: MenuConfig = {
         icon: 'la-text-height',
         page: 'https://modern-admin-docs.web.app/html/ltr/documentation/index.html',
         isExternalLink: true,
-      }*/
+      }
     ]
   }
 

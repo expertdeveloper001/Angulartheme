@@ -1,7 +1,7 @@
 // Default theme settings configurations
 
 export const ThemeSettingsConfig = {
-  colorTheme: 'light', // light, semi-light, semi-dark, dark
+  colorTheme: 'semi-dark', // light, semi-light, semi-dark, dark
   layout: {
     style: 'vertical', // style: 'vertical', horizontal,
     pattern: 'fixed' // fixed, boxed, static
@@ -21,7 +21,7 @@ export const ThemeSettingsConfig = {
     email: 'on' // on, off
   },
   brand: {
-    brand_name: 'NSI INC',
+    brand_name: 'Modern Admin',
     logo: {
       type: 'internal', // internal, url
       value: 'assets/custom/images/logo.png' // recommended location for custom images
@@ -29,5 +29,5 @@ export const ThemeSettingsConfig = {
       // value:'http://evolvision.com/wp-content/uploads/2018/01/envelope4-green.png'
     },
   },
-  defaultTitleSuffix: 'Northside Imports Inc'
+  defaultTitleSuffix: 'Modern Admin - Angular 8+ Bootstrap 4 Admin Dashboard Template'
 };
