@@ -15,7 +15,7 @@ export class FooterComponent implements OnInit {
   public showFooter: boolean;
   public fixedFooter: boolean;
   public darkFooter: boolean;
-
+  public copyRightFooterDate = new Date().getFullYear();
   private _unsubscribeAll: Subject<any>;
   private _themeSettingsConfig: any;
 

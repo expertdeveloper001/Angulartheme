@@ -1,0 +1,47 @@
+<div class="app-content content">
+  <div class="content-wrapper">
+    <div class="content-header row mb-1"></div>
+    <div class="content-detached">
+      <div class="content-body">
+        <section class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+				    <div class="card">
+						<div class="card-header">
+							<h1>Manager Details Upload</h1><hr/>
+						</div>
+						<div class="row">
+						    <form class="form-group" [formGroup]="managerForm" novalidate (ngSubmit)="onSubmit()">
+							    <div class="col-lg-8 col-md-12 ml-2">
+									<h4 class="mb-1">Upload file here (.CSV File only Supported)</h4>
+									<div class="custom-file">
+									    <input type="file" class="custom-file-input" formControlName="managerFile" id="importFile"
+									    [ngClass]="{ 'is-invalid': submitted && f.managerFile.errors }" accept=".csv" >
+									    <label class="custom-file-label" #labelImport for="inputGroupFile01">Choose file</label>
+									    <div *ngIf="submitted && f.managerFile.errors" class="invalid-feedback">
+										    <div *ngIf="f.managerFile.errors.required">Please Upload a .CSV file</div>
+									    </div>
+								     </div>
+							    </div>
+								
+								<div class="col-lg-12 col-md-12 ml-2">
+								    <div class="mt-1">
+									    <button class="btn btn-info" type="submit">Submit</button><br/><br/>
+										<span>ManagerCode, ManagerPass, ManagerEmail and ManagerDisplayName Columns are Must</span>
+								    </div>
+								</div>
+							</form>
+						</div>
+					</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
