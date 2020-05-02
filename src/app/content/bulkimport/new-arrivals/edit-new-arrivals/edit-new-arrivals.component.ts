@@ -162,20 +162,8 @@ export class EditNewArrivalsComponent implements OnInit {
 	console.log(this.specialForm)
   }
 
-  reloadBaseStyle() {
-    this.blockUIBaseStyle.start('Loading..');
-
-    setTimeout(() => {
-      this.blockUIBaseStyle.stop();
-    }, 2500);
-  }
-
-  reloadNoStylingClasses() {
-    this.blockUINoStylingClasses.start('Loading..');
-
-    setTimeout(() => {
-      this.blockUINoStylingClasses.stop();
-    }, 2500);
+  back(){
+	this.router.navigate(['bulk/new-arrivals']);	
   }
 }
 

@@ -10,7 +10,11 @@
                 <div class="card-body">
 				  <div class="card">
 					<div class="card">
-					  <h1>Update New Specials</h1><hr/>	
+					  <div class="row">
+					    <div class="col-md-10"><h1>Update New Specials</h1></div>
+					    <div class="col-md-2"><button class="btn btn-info float-right" (click)="back()">Back</button></div>
+					  </div>
+					  <hr/>	
 						<form [formGroup]="specialForm" (ngSubmit)="onSubmit()">
 					    <div class="form-body">
 						  <div class="row">

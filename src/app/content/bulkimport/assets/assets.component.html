@@ -17,8 +17,8 @@
 						<h4 class="mb-2">Upload file here (jpeg, jpg, png Format Only Supported)</h4>
 						<form class="form-group" [formGroup]="assetsForm" novalidate (ngSubmit)="onSubmit()">
 						  <div class="mb-1 mt-1">
-							<input type="radio" class="custom-control-input bg-primary" name="name" formControlName="name" value="brand" />Brand Logo
-							<input type="radio" class="custom-control-input bg-primary" name="name" formControlName="name" value="part" />Part Image
+							<input type="radio" name="name" formControlName="name" value="brand" />Brand Logo
+							<input type="radio" name="name" formControlName="name" value="part" />Part Image
 						  </div>
 						  <div class="custom-file">
 						    <input type="file" class="custom-file-input" formControlName="assetsFile" id="importFile"

@@ -965,6 +965,14 @@ export const MenuSettingsConfig: MenuConfig = {
               title: 'New Arrivals',
               page: '/bulk/new-arrivals'
             },
+			{
+              title: 'Featured Brands',
+              page: '/bulk/featured-brands'
+            },
+			{
+              title: 'Featured Items',
+              page: '/bulk/featured-items'
+            },
           ]
         }
       },

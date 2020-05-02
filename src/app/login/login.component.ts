@@ -54,7 +54,8 @@ export class LoginComponent implements OnInit {
   }
 
   tryLogin() {
-    this.submitted = true;
+	console.log("test");
+	this.submitted = true;
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -64,26 +65,34 @@ export class LoginComponent implements OnInit {
       email: this.f.email.value,
       password: this.f.password.value
     };
-    this.authService.doLogin(value).then(
-      res => {
-        if (this.loginForm.controls['rememberMe'] && this.loginForm.controls['rememberMe'].value) {
-          localStorage.setItem('remember', 'true');
-        } else {
-          localStorage.removeItem('remember');
-        }
-        this.setUserInStorage(res);
+	    localStorage.setItem('remember', 'true');
+	    this.setUserInStorage(value);
         localStorage.removeItem('currentLayoutStyle');
         let returnUrl = '/dashboard/sales';
         if (this.returnUrl) {
           returnUrl = this.returnUrl;
         }
         this.router.navigate([returnUrl]);
-      },
-      err => {
-        this.submitted = false;
-        this.alertService.error(err.message);
-      }
-    );
+    // this.authService.doLogin(value).then(
+      // res => {
+        // if (this.loginForm.controls['rememberMe'] && this.loginForm.controls['rememberMe'].value) {
+          // localStorage.setItem('remember', 'true');
+        // } else {
+          // localStorage.removeItem('remember');
+        // }
+        // this.setUserInStorage(res);
+        // localStorage.removeItem('currentLayoutStyle');
+        // let returnUrl = '/dashboard/sales';
+        // if (this.returnUrl) {
+          // returnUrl = this.returnUrl;
+        // }
+        // this.router.navigate([returnUrl]);
+      // },
+      // err => {
+        // this.submitted = false;
+        // this.alertService.error(err.message);
+      // }
+    // );
   }
 
   setUserInStorage(res) {
