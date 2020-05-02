@@ -43,9 +43,7 @@
               "node_modules/highlight.js/styles/github.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
-
-            "scripts": [
-              ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -55,10 +53,12 @@
                   "maximumWarning": "6kb"
                 }
               ],
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -148,5 +148,8 @@
       }
     }
   },
-  "defaultProject": "angular-pwa-demo"
+  "defaultProject": "angular-pwa-demo",
+  "cli": {
+    "analytics": "9c6e5571-010a-40f9-93d2-0e09d79dbee2"
+  }
 }
