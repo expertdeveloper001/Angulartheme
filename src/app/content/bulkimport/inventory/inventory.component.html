@@ -8,33 +8,30 @@
             <div class="card">
               <div class="card-content">
                 <div class="card-body">
-				    <div class="card">
-						<div class="card-header">
-							<h1>  Inventory Details Upload</h1><hr/>
-						</div>
-						
-						<div class="row">
-							<div class="col-lg-5 col-md-12 ml-2">
-								<h4 class="mb-1">  Upload file here (.CSV File only Supported)</h4>
-								<form class="form-group" [formGroup]="inventoryForm" novalidate (ngSubmit)="onSubmit()">
-									<div class="custom-file">
-										<input type="file" class="custom-file-input" formControlName="inventoryFile" id="importFile"
-										[ngClass]="{ 'is-invalid': submitted && f.inventoryFile.errors }" accept=".csv" >
-										
-										<label class="custom-file-label" #labelImport for="inputGroupFile01">Choose file</label>
-										<div *ngIf="submitted && f.inventoryFile.errors" class="invalid-feedback">
-											<div *ngIf="f.inventoryFile.errors.required">Please Upload a .CSV file</div>
-										</div>
-										<div class="mt-1">
-										    <button class="btn btn-info" type="submit">Submit</button><br/><br/>
-											<span>PartNumber,PartNumberPrint Column is Must</span>
-										</div>
-									</div>
-								</form>
+				  <div class="card">
+					<div class="card-header">
+					  <h1>  Inventory Details Upload</h1><hr/>
+				    </div>
+					<div class="row">
+					  <div class="col-lg-5 col-md-12 ml-2">
+						<h4 class="mb-1">  Upload file here (.CSV File only Supported)</h4>
+						<form class="form-group" [formGroup]="inventoryForm" novalidate (ngSubmit)="onSubmit()">
+						  <div class="custom-file">
+							<input type="file" class="custom-file-input" formControlName="inventoryFile" id="importFile"
+							[ngClass]="{ 'is-invalid': submitted && f.inventoryFile.errors }" accept=".csv" >
+					        <label class="custom-file-label" #labelImport for="inputGroupFile01">Choose file</label>
+							<div *ngIf="submitted && f.inventoryFile.errors" class="invalid-feedback">
+							  <div *ngIf="f.inventoryFile.errors.required">Please Upload a .CSV file</div>
 							</div>
-						</div>
-						
+							<div class="mt-1">
+							  <button class="btn btn-info" type="submit">Submit</button><br/><br/>
+							  <span>PartNumber,PartNumberPrint Column is Must</span>
+							</div>
+						  </div>
+					    </form>
+				      </div>
 					</div>
+				  </div>
                 </div>
               </div>
             </div>

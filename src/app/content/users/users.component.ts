@@ -1,19 +1,19 @@
 import { Component, OnInit, ViewChild, EventEmitter, Output, Renderer2 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 
-class User {
+class Contact {
   constructor(
     public id: number,
-    public username: string,
     public name: string,
     public email: string,
-    public role: string,
+    public phone: string,
     public image: any,
-    public isActive: string
+    public isFavorite: boolean,
+    public isActive: string,
   ) { }
 }
 
@@ -24,37 +24,57 @@ class User {
 })
 export class UsersComponent implements OnInit {
   columns: any = [];
-  userUsername: any;
-  userName: any;
-  userEmail: any;
-  userRole: any;
-  userPhone: any;
-  userImage: any;
-  useractive: string;
+  contactName: any;
+  contactEmail: any;
+  contactPhone: any;
+  contactImage: any;
+  contactFavorite: boolean;
+  contactactive: string;
+  deleteUser:any;
+  deleteCheckUser:any;
   rows: any[] = [];
+  rows2: any[] = [];  
+  rows3: any[] = [];  
+  rows4: any[] = [];  
+  rows5: any[] = [];
+  deleteRowData: any = [];  
   name = 'Angular';
   public imagePath;
   imgURL: any;
-  selectedUser: any;
-  userFlag: boolean;
-  addUser: any;
+  selectedContact: any;
+  contactFlag: boolean;
+  addContact: any;
   placement = 'bottom-right';
   imagepathdefault: any;
   addModal = null;
   editModal = null;
-  viewModal = null;
-  deleteModal = null;
   value: any;
   loadingIndicator: true;
   selected = [];
-  temp = [];
+  temp = [];  
+  tempAdmin = [];  
+  tempCustomer = [];  
+  tempSp = [];  
+  tempManager = [];  
   temp2 = this.rows;
+  temp2Admin = this.rows2;
+  temp2Customer = this.rows3;
+  temp2Sp = this.rows4;
+  temp2Manager = this.rows5;
+  singlebasicSelected: any;
+  checkAll: any ;
+  deleteUserColumn: any;
 
   public config: PerfectScrollbarConfigInterface = { };
-
+  //public singleSelectArray = selectData.singleSelectArray;
+  
+  @BlockUI('basicModals') blockUIBasicModals: NgBlockUI;
+  @BlockUI('modalThemes') blockUIModalThemes: NgBlockUI;
+  
+  @ViewChild('ng-select') ngSelect;
   @ViewChild(PerfectScrollbarComponent) componentRef?: PerfectScrollbarComponent;
   @ViewChild(PerfectScrollbarDirective) directiveRef?: PerfectScrollbarDirective;
-  
+
   @Output() closeModalEvent = new EventEmitter<boolean>();
   @ViewChild(DatatableComponent, { static: true }) table: DatatableComponent;
 
@@ -73,126 +93,248 @@ export class UsersComponent implements OnInit {
      * OnInit
      */
   ngOnInit() {
-    this.rows.push(new User(1, '12345', 'Scott Marsh', 'scott@gmail.com', 'Customer',
-      '../../../assets/images/portrait/small/avatar-s-5.png', 'online'));
-    this.rows.push(new User(2, '12345', 'Russell Bry', 'russell@gmail.com', 'Customer',
-      '../../../assets/images/portrait/small/avatar-s-3.png', 'busy'));
-    this.rows.push(new User(3, '12345', 'james john', 'john@gmail.com', 'Customer',
-      '../../../assets/images/portrait/small/avatar-s-1.png', 'away'));
-    this.rows.push(new User(4, '12345', 'Cynth Tuck', 'tuck@gmail.com', 'Customer',
-      '../../../assets/images/portrait/small/avatar-s-4.png', 'busy'));
-    this.rows.push(new User(5, '12345', 'Margi Govan', 'govan@gmail.com', 'Customer',
-      '../../../assets/images/portrait/small/avatar-s-6.png', 'online'));
-    this.rows.push(new User(6, '12345', 'Eugene Wood', 'wood@gmail.com', 'Customer',
-      '../../../assets/images/portrait/small/avatar-s-9.png', 'busy'));
-    this.rows.push(new User(7, '12345', 'Eric Marshall', 'eric@gmail.com', 'Customer',
-      '../../../assets/images/portrait/small/avatar-s-7.png', 'online'));
+    this.rows.push(new Contact(1, 'Scott Marsh', 'scott@gmail.com', '(954)-654-5641',
+      '../../../assets/images/portrait/small/avatar-s-5.png', false, 'online'));
+    this.rows.push(new Contact(2, 'Russell Bry', 'russell@gmail.com', '(235)-654-5642',
+      '../../../assets/images/portrait/small/avatar-s-3.png', false, 'busy'));
+    this.rows.push(new Contact(3, 'james john', 'john@gmail.com', '(125)-654-5643',
+      '../../../assets/images/portrait/small/avatar-s-1.png', true, 'away'));
+    this.rows.push(new Contact(4, 'Cynth Tuck', 'tuck@gmail.com', '(974)-654-5644',
+      '../../../assets/images/portrait/small/avatar-s-4.png', false, 'busy'));
+    this.rows.push(new Contact(5, 'Margi Govan', 'govan@gmail.com', '(954)-654-5645',
+      '../../../assets/images/portrait/small/avatar-s-6.png', true, 'online'));
+    this.rows.push(new Contact(6, 'Eugene Wood', 'wood@gmail.com', '(987)-654-5646',
+      '../../../assets/images/portrait/small/avatar-s-9.png', false, 'busy'));
+    this.rows.push(new Contact(7, 'Eric Marshall', 'eric@gmail.com', '(545)-654-5647',
+      '../../../assets/images/portrait/small/avatar-s-7.png', false, 'online'));
+	  
+	this.rows2.push(new Contact(1, 'Scott Marsh', 'scott@gmail.com', '(954)-654-5641',
+      '../../../assets/images/portrait/small/avatar-s-5.png', false, 'online'));
+    this.rows2.push(new Contact(2, 'Russell Bry', 'russell@gmail.com', '(235)-654-5642',
+      '../../../assets/images/portrait/small/avatar-s-3.png', false, 'busy'));
+	  
+	this.rows3.push(new Contact(3, 'Scott Marsh', 'scott@gmail.com', '(954)-654-5641',
+      '../../../assets/images/portrait/small/avatar-s-5.png', false, 'online'));
+    this.rows3.push(new Contact(4, 'Russell Bry', 'russell@gmail.com', '(235)-654-5642',
+      '../../../assets/images/portrait/small/avatar-s-3.png', false, 'busy'));
+	  
+	this.rows4.push(new Contact(1, 'Eugene Wood', 'wood@gmail.com', '(987)-654-5646',
+      '../../../assets/images/portrait/small/avatar-s-9.png', false, 'busy'));
+    this.rows4.push(new Contact(2, 'Eric Marshall', 'eric@gmail.com', '(545)-654-5647',
+      '../../../assets/images/portrait/small/avatar-s-7.png', false, 'online'));
+	  
+	this.rows5.push(new Contact(1, 'Eugene Wood', 'wood@gmail.com', '(987)-654-5646',
+      '../../../assets/images/portrait/small/avatar-s-9.png', false, 'busy'));
+    this.rows5.push(new Contact(2, 'Eric Marshall', 'eric@gmail.com', '(545)-654-5647',
+      '../../../assets/images/portrait/small/avatar-s-7.png', false, 'online'));
+  
+   // this.singlebasicSelected = this.singleSelectArray[0].item_text;
+
   }
 
   /**
-   * Add new User
+   * Add new contact
    *
-   * @param addTableDataModalContent      Id of the add User modal;
+   * @param addTableDataModalContent      Id of the add contact modal;
    */
   addTableDataModal(addTableDataModalContent) {
     this.addModal = this.modal.open(addTableDataModalContent, {
       windowClass: 'animated fadeInDown'
     });
-    this.userFlag = true;
+    this.contactFlag = true;
+  }
+  
+  /**
+   * Model for delete.
+   *
+   *
+   */
+  DeleteUserModel(DeleteUser, row, value) {
+	this.deleteRowData = row;
+	this.deleteUserColumn = value;
+    this.deleteUser = this.modal.open(DeleteUser, { windowClass: 'animated fadeInDown' });
+  }
+  
+  /**
+   * Model for delete.
+   *
+   *
+   */
+  DeleteCheckUserModel(DeleteCheckUser, value) {
+	this.checkAll = value;
+    this.deleteCheckUser = this.modal.open(DeleteCheckUser, { windowClass: 'animated fadeInDown' });
   }
 
   /**
-   * Edit selected User row.
+   * Edit selected contact row.
    *
-   * @param editTableDataModalContent     Id of the edit User model.
+   * @param editTableDataModalContent     Id of the edit contact model.
    * @param row     The row which needs to be edited.
    */
   editTableDataModal(editTableDataModalContent, row) {
-    this.selectedUser = Object.assign({}, row);
+    this.selectedContact = Object.assign({}, row);
     this.editModal = this.modal.open(editTableDataModalContent, {
       windowClass: 'animated fadeInDown'
     });
-    this.userFlag = false;
-  }
-  
-  viewTableDataModal(viewTableDataModalContent, row) {
-    this.selectedUser = Object.assign({}, row);
-    this.viewModal = this.modal.open(viewTableDataModalContent, {
-      windowClass: 'animated fadeInDown'
-    });
-    this.userFlag = false;
+    this.contactFlag = false;
   }
 
   /**
-   * Selected User
+   * Selected contact
    *
-   * @param selected      Selected User;
+   * @param selected      Selected contact;
    */
-  onSelectUser({ selected }) {
+  onSelectContact({ selected }) {
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
   }
 
   /**
-   * Search user from user table
+   * Search contact from contact table
    *
    * @param event     Convert value uppercase to lowercase;
    */
-  updateFilter(event) {
+  updateFilter(event, value) {
     const val = event.target.value.toLowerCase();
-    this.rows = [...this.temp2];
-    this.temp = [...this.rows];
-    const temp = this.rows.filter(function (d) {
-      return d.name.toLowerCase().indexOf(val) !== -1 || !val;
-    });
-    this.rows = temp;
-    this.table.offset = 0;
+	const tab = value;
+
+	if(tab === 'all'){
+		this.rows = [...this.temp2];
+		this.temp = [...this.rows];
+		const temp = this.rows.filter(function (d) {
+		  return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+		});
+		this.rows = temp;
+	}
+
+	if(tab === 'admin'){
+		this.rows2 = [...this.temp2Admin];
+		this.tempAdmin = [...this.rows2];
+		const temp = this.rows2.filter(function (d) {
+		  return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+		});
+		this.rows2 = temp;
+	}
+	
+	if(tab === 'customer'){
+		this.rows3 = [...this.temp2Customer];
+		this.tempCustomer = [...this.rows3];
+		const temp = this.rows3.filter(function (d) {
+		  return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+		});
+		this.rows3 = temp;
+	}
+	
+	if(tab === 'sp'){
+		this.rows4 = [...this.temp2Sp];
+		this.tempSp = [...this.rows4];
+		const temp = this.rows4.filter(function (d) {
+		  return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+		});
+		this.rows4 = temp;
+	}
+	
+	if(tab === 'manager'){
+		this.rows5 = [...this.temp2Manager];
+		this.tempManager = [...this.rows5];
+		const temp = this.rows5.filter(function (d) {
+		  return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+		});
+		this.rows5 = temp;
+	}
+    //this.table.offset = 0;
   }
 
   /**
-   * Choose user image
+   * Choose contact image
    *
-   * @param event     Select user image;
+   * @param event     Select contact image;
    */
   preview(event) {
     const reader = new FileReader();
     reader.onload = (e: any) => {
-      this.userImage = e.target.result;
+      this.contactImage = e.target.result;
     };
     reader.readAsDataURL(event.target.files[0]);
   }
 
   /**
-   * Delete user row
-   * @param row     Selected row for delete user
+   * Delete contact row
+   * @param row     Selected row for delete contact
    */
-  deleteRow(DangerModelContent, row) {
-	this.selectedUser = Object.assign({}, row);
-    this.deleteModal = this.modal.open(DangerModelContent, {
-      windowClass: 'animated fadeInDown'
-    });
-    this.userFlag = false;
-  }
-  
-  deleteUser(deleteForm: NgForm, id) {
-	if (id !== '' && id !== undefined)
-	{
-		let index = 0;
+  deleteRow() {
+	let index = 0;
+	
+	if(this.deleteUserColumn === 'all'){
 		const temp = [...this.rows];
 		for (const tempRow of temp) {
-		  if (tempRow.id === id) {
+		  if (tempRow.id === this.deleteRowData.id) {
 			temp.splice(index, 1);
-			this.deleteModal.close(deleteForm.resetForm);
 			break;
 		  }
 		  index++;
 		}
+		this.deleteUser.close();
 		this.rows = temp;
-    }
+	}
+	
+	if(this.deleteUserColumn === 'admin'){
+		const temp = [...this.rows2];
+		for (const tempRow of temp) {
+		  if (tempRow.id === this.deleteRowData.id) {
+			temp.splice(index, 1);
+			break;
+		  }
+		  index++;
+		}
+		this.deleteUser.close();
+		this.rows2 = temp;
+	}
+	
+	if(this.deleteUserColumn === 'customer'){
+		const temp = [...this.rows3];
+		for (const tempRow of temp) {
+		  if (tempRow.id === this.deleteRowData.id) {
+			temp.splice(index, 1);
+			break;
+		  }
+		  index++;
+		}
+		this.deleteUser.close();
+		this.rows3 = temp;
+	}
+	
+	if(this.deleteUserColumn === 'sp'){
+		const temp = [...this.rows4];
+		for (const tempRow of temp) {
+		  if (tempRow.id === this.deleteRowData.id) {
+			temp.splice(index, 1);
+			break;
+		  }
+		  index++;
+		}
+		this.deleteUser.close();
+		this.rows4 = temp;
+	}
+	
+	if(this.deleteUserColumn === 'manager'){
+		const temp = [...this.rows5];
+		for (const tempRow of temp) {
+		  if (tempRow.id === this.deleteRowData.id) {
+			temp.splice(index, 1);
+			break;
+		  }
+		  index++;
+		}
+		this.deleteUser.close();
+		this.rows5 = temp;
+	}
+    this.deleteUserColumn = '';
+	this.deleteRowData = [];
   }
-  
+
   /**
-   * Update user details
+   * Update contact details
    *
    * @param editForm      Edit form for values check
    * @param id      Id match to the selected row Id
@@ -200,10 +342,9 @@ export class UsersComponent implements OnInit {
   onUpdate(editForm: NgForm, id) {
     for (const row of this.rows) {
       if (row.id === id && editForm.valid === true) {
-        row.username = this.selectedUser['Username'];
-        row.name = this.selectedUser['Name'];
-        row.email = this.selectedUser['email'];
-        row.role = this.selectedUser['Role'];
+        row.name = this.selectedContact['name'];
+        row.email = this.selectedContact['email'];
+        row.phone = this.selectedContact['phone'];
         this.editModal.close(editForm.resetForm);
         break;
       }
@@ -211,60 +352,154 @@ export class UsersComponent implements OnInit {
   }
 
   /**
-   * Delete selected user
+   * Contact changed to favorite or non-favorite
+   *
+   * @param row     Row of the favorite contact
    */
-  deleteCheckedRow(DangerModelContent) {
-	this.modal.open(DangerModelContent, { windowClass: 'animated fadeInDown' });
-    let index = 0;
-    const removedIndex = [];
-    const temp = [...this.rows];
-    for (const row of temp) {
-      for (const selectedRow of this.selected) {
-        if (row.id === selectedRow.id) {
-          removedIndex.push(index);
-        }
-      }
-      index++;
+  favoriteChange(row) {
+    if (row.isFavorite) {
+      row.isFavorite = row.isFavorite ? false : true;
+    } else {
+      row.isFavorite = true;
     }
-    for (let i = removedIndex.length - 1; i >= 0; i--) {
-      temp.splice(removedIndex[i], 1);
-    }
-    this.rows = temp;
-    this.selected = [];
-	this.userFlag = false;
   }
 
   /**
-   * New user add to the table
-   *
-   * @param addForm     Add user form
+   * Delete selected contact
    */
-  addNewUser(addForm: NgForm) {
-    if (this.userImage == null) {
-      this.userImage = '../../../assets/images/portrait/small/default.png';
+  deleteCheckedRow() {
+    let index = 0;
+    const removedIndex = [];
+	
+	if(this.checkAll === 'all'){
+		const temp = [...this.rows];
+		for (const row of temp) {
+		  for (const selectedRow of this.selected) {
+			if (row.id === selectedRow.id) {
+			  removedIndex.push(index);
+			}
+		  }
+		  index++;
+		}
+		for (let i = removedIndex.length - 1; i >= 0; i--) {
+		  temp.splice(removedIndex[i], 1);
+		}
+		this.rows = temp;
+	}
+	
+	if(this.checkAll === 'admin'){
+		const temp = [...this.rows2];
+		for (const row of temp) {
+		  for (const selectedRow of this.selected) {
+			if (row.id === selectedRow.id) {
+			  removedIndex.push(index);
+			}
+		  }
+		  index++;
+		}
+		for (let i = removedIndex.length - 1; i >= 0; i--) {
+		  temp.splice(removedIndex[i], 1);
+		}
+		this.rows2 = temp;
+	}
+	
+	if(this.checkAll === 'customer'){
+		const temp = [...this.rows3];
+		for (const row of temp) {
+		  for (const selectedRow of this.selected) {
+			if (row.id === selectedRow.id) {
+			  removedIndex.push(index);
+			}
+		  }
+		  index++;
+		}
+		for (let i = removedIndex.length - 1; i >= 0; i--) {
+		  temp.splice(removedIndex[i], 1);
+		}
+		this.rows3 = temp;
+	}
+	
+	if(this.checkAll === 'sp'){
+		const temp = [...this.rows4];
+		for (const row of temp) {
+		  for (const selectedRow of this.selected) {
+			if (row.id === selectedRow.id) {
+			  removedIndex.push(index);
+			}
+		  }
+		  index++;
+		}
+		for (let i = removedIndex.length - 1; i >= 0; i--) {
+		  temp.splice(removedIndex[i], 1);
+		}
+		this.rows4 = temp;
+	}
+	
+	if(this.checkAll === 'manager'){
+		const temp = [...this.rows5];
+		for (const row of temp) {
+		  for (const selectedRow of this.selected) {
+			if (row.id === selectedRow.id) {
+			  removedIndex.push(index);
+			}
+		  }
+		  index++;
+		}
+		for (let i = removedIndex.length - 1; i >= 0; i--) {
+		  temp.splice(removedIndex[i], 1);
+		}
+		this.rows5 = temp;
+	}
+    
+    this.selected = [];
+	this.checkAll = '';
+	this.deleteCheckUser.close();
+  }
+
+  /**
+   * favorite set when add contact
+   *
+   * @param event     favorite set on click event
+   */
+  addFavoriteImage(event) {
+    if (event.target.checked === true) {
+      this.contactFavorite = true;
     } else {
-      this.userImage = this.userImage;
+      this.contactFavorite = false;
+    }
+  }
+
+  /**
+   * New contact add to the table
+   *
+   * @param addForm     Add contact form
+   */
+  addNewContact(addForm: NgForm) {
+    if (this.contactImage == null) {
+      this.contactImage = '../../../assets/images/portrait/small/default.png';
+    } else {
+      this.contactImage = this.contactImage;
     }
 
-    if (this.useractive === undefined) {
-      this.useractive = 'away';
+    if (this.contactactive === undefined) {
+      this.contactactive = 'away';
     } else {
-      this.useractive = this.useractive;
+      this.contactactive = this.contactactive;
     }
 
     /**
-     * Add user if valid addform value
+     * Add contact if valid addform value
      */
     if (addForm.valid === true) {
       this.rows.push(
-        new User(
+        new Contact(
           this.rows.length + 1,
-          this.userUsername,
-          this.userName,
-          this.userEmail,
-          this.userRole,
-          this.userImage,
-          this.useractive
+          this.contactName,
+          this.contactEmail,
+          this.contactPhone,
+          this.contactImage,
+          this.contactFavorite,
+          this.contactactive
         )
       );
       this.rows = [...this.rows];
@@ -277,10 +512,10 @@ export class UsersComponent implements OnInit {
    * Set the phone number format
    */
   onFormat() {
-    if (this.userFlag === true) {
-      this.value = this.userPhone;
-    } else if (this.userFlag === false) {
-      this.value = this.selectedUser['phone'];
+    if (this.contactFlag === true) {
+      this.value = this.contactPhone;
+    } else if (this.contactFlag === false) {
+      this.value = this.selectedContact['phone'];
     }
 
     let country, city, number;
@@ -314,10 +549,10 @@ export class UsersComponent implements OnInit {
     number = number.slice(0, 3) + '-' + number.slice(3);
 
     const no = '(' + city + ')' + '-' + number;
-    if (this.userFlag === true) {
-      this.userPhone = no;
-    } else if (this.userFlag === false) {
-      this.selectedUser['phone'] = no;
+    if (this.contactFlag === true) {
+      this.contactPhone = no;
+    } else if (this.contactFlag === false) {
+      this.selectedContact['phone'] = no;
     }
   }
 

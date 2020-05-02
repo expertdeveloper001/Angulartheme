@@ -34,7 +34,6 @@ import { ThemeSettingsConfig } from './_layout/settings/theme-settings.config';
 import { MenuSettingsConfig } from './_layout/settings/menu-settings.config';
 import { HeaderComponent } from './_layout/header/header.component';
 import { VerticalComponent as HeaderVerticalComponent } from './_layout/header/vertical/vertical.component';
-import { HorizontalComponent as HeaderHorizontalComponent } from './_layout/header/horizontal/horizontal.component';
 import { FullLayoutNavbarComponent } from './_layout/header/full-layout-navbar/full-layout-navbar.component';
 import { FooterComponent } from './_layout/footer/footer.component';
 import { NavigationComponent as AppNavigationComponent } from './_layout/navigation/navigation.component';
@@ -43,7 +42,6 @@ import { PrivateLayoutComponent } from './_layout/private-layout/private-layout.
 import { RegisterComponent } from './register';
 import { SocialSigninComponent } from './social-signin/social-signin.component';
 import { LoginComponent } from './login';
-import { ChangelogComponent } from './changelog/changelog.component';
 import { NavbarService } from './_services/navbar.service';
 import { VerticalnavComponent } from './_layout/navigation/verticalnav/verticalnav.component';
 import { HorizontalnavComponent } from './_layout/navigation/horizontalnav/horizontalnav.component';
@@ -99,7 +97,6 @@ import { UserService } from './_api/user/user.service';
         PrivateLayoutComponent,
         HeaderComponent,
         FullLayoutNavbarComponent,
-        HeaderHorizontalComponent,
         HeaderVerticalComponent,
         FooterComponent,
         AppNavigationComponent,
@@ -107,7 +104,6 @@ import { UserService } from './_api/user/user.service';
         RegisterComponent,
         SocialSigninComponent,
         LoginComponent,
-        ChangelogComponent,
         VerticalnavComponent ,
         HorizontalnavComponent ,
         CustomizerComponent,

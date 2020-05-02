@@ -29,7 +29,7 @@ export class SalespersonComponent implements OnInit {
 
 		this.spInfoForm = this.formBuilder.group({
              spCode: ['', Validators.required],
-             spName: [', Validators.required'],
+             spName: ['', Validators.required],
              password: ['', Validators.required],
              spEmail: ['', [Validators.required, Validators.email]],
              store: [''],

@@ -12,32 +12,30 @@ import { FormBuilder, FormGroup, FormControl, AbstractControl, Validators } from
 })
 export class AssetsComponent implements OnInit {
 
-  public assetsForm: FormGroup;
-  public submitted = false;
+    public assetsForm: FormGroup;
+    public submitted = false;
 
-  constructor(
-    private formBuilder: FormBuilder,
-	private router: Router,
-  ) { }
+    constructor(
+        private formBuilder: FormBuilder,
+	    private router: Router,
+    ) { }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
 	    this.assetsForm = this.formBuilder.group({
 			 name: [''],
 			 assetsFile: ['', Validators.required],
         });
-  }
-  
-  get f() { 
-    return this.assetsForm.controls; 
-  }
-  
-  onSubmit(){
-	console.log("test");
-    this.submitted = true;
-	if (this.assetsForm.invalid) {
-        return;
     }
-	console.log(this.assetsForm)
-  }
-
+  
+    get f() { 
+        return this.assetsForm.controls; 
+    }
+  
+    onSubmit(){
+        this.submitted = true;
+		if (this.assetsForm.invalid) {
+			return;
+		}
+		console.log(this.assetsForm)
+    }
 }

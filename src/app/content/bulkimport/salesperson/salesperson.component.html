@@ -1,8 +1,6 @@
 <div class="app-content content">
   <div class="content-wrapper">
-    
 	<div class="content-header row mb-1"></div>
-    
 	<div class="content-detached">
       <div class="content-body">
         <section class="row">
@@ -14,7 +12,7 @@
 					<div class="card-header">
 					  <h1>Sales Person Details Upload</h1><hr/>
 				    </div>
-             
+
 			        <form class="form-group" [formGroup]="spFileForm" novalidate (ngSubmit)="onSubmit()">
 					  <div class="row">
 					    <div class="col-lg-6 col-md-12 ml-2">
@@ -28,7 +26,6 @@
 							</div>
 					      </div>
 					    </div>
-						
 						<div class="col-lg-12 col-md-12 ml-2">
 						  <div class="mt-2">
 							<button class="btn btn-info" type="submit">Submit</button><br/><br/>
@@ -36,108 +33,108 @@
 						</div>
 					  </div>	
 					</form>	
-						
+					
 					<div class="row mt-2">
 					  <div class="col-lg-12 col-md-12">
 						<section id="basic-form-layouts" class="ml-2 mr-2">
 						  <span class="mb-2"><button class="btn btn-primary" (click)="toggle()">Add/Update</button></span>
 						  <div *ngIf="showForm" class="mt-2">
 							<form [formGroup]="spInfoForm" (ngSubmit)="submitCustomer()">
-								<div class="form-body">
-									<h4 class="form-section"><i class="feather ft-user"></i> Sales Personal Info</h4>
-									<div class="row">
-									  <div class="col-md-6">
-										<div class="form-group">
-										  <label for="spCode">Salesperson Code<span class="text-danger">*</span></label>
-										  <input type="text" id="spCode" class="form-control" formControlName="spCode"
-                                          [ngClass]="{ 'is-invalid': submittedInfo && h.spCode.errors }" />
-										  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.spCode.errors" class="invalid-feedback">
-											<div *ngIf="h.spCode.errors.required">Salesperson Code is required</div>
-										  </small>
-										</div>
-									  </div>
-									  <div class="col-md-6">
-										<div class="form-group">
-										  <label for="spName">Salesperson Name<span class="text-danger">*</span></label>
-										  <input type="text" id="password" class="form-control" formControlName="spName" [ngClass]="{ 'is-invalid': submittedInfo && h.spName.errors }" />
-										  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.spName.errors" class="invalid-feedback">
-											<div *ngIf="h.spName.errors.required">Salesperson Name is required</div>
-										  </small>
-										</div>
-									  </div>
+							  <div class="form-body">
+								<h4 class="form-section"><i class="feather ft-user"></i> Sales Personal Info</h4>
+								<div class="row">
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label for="spCode">Salesperson Code<span class="text-danger">*</span></label>
+										<input type="text" id="spCode" class="form-control" formControlName="spCode"
+                                        [ngClass]="{ 'is-invalid': submittedInfo && h.spCode.errors }" />
+										<small class="form-text text-muted danger" *ngIf="submittedInfo && h.spCode.errors" class="invalid-feedback">
+										  <div *ngIf="h.spCode.errors.required">Salesperson Code is required</div>
+										</small>
 									</div>
-									
-									<div class="row">
-									  <div class="col-md-6">
-										<div class="form-group">
-										  <label for="password">Password<span class="text-danger">*</span></label>
-										  <input type="text" id="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submittedInfo && h.password.errors }" />
-										  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.password.errors" class="invalid-feedback">
-											<div *ngIf="h.password.errors.required">Password is required</div>
-										  </small>
-										</div>
-									  </div>
-									  <div class="col-md-6">
-										<div class="form-group">
-										  <label for="spEmail">Salesperson Email Id<span class="text-danger">*</span></label>
-										  <input type="text" id="spEmail" class="form-control" formControlName="spEmail" [ngClass]="{ 'is-invalid': submittedInfo && h.spEmail.errors }" />
-										  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.spEmail.errors" class="invalid-feedback">
-										    <div *ngIf="h.spEmail.errors.required">Email is required</div>
-											<div *ngIf="h.spEmail.errors.email">Email must be a valid email address</div>
-										  </small>
-										</div>
-									  </div>
+								  </div>
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label for="spName">Salesperson Name<span class="text-danger">*</span></label>
+									  <input type="text" id="password" class="form-control" formControlName="spName" [ngClass]="{ 'is-invalid': submittedInfo && h.spName.errors }" />
+									  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.spName.errors" class="invalid-feedback">
+										<div *ngIf="h.spName.errors.required">Salesperson Name is required</div>
+									  </small>
 									</div>
-									
-									<div class="row">
-									  <div class="col-md-6">
-										<div class="form-group">
-										  <label for="store"> Store Number </label>
-										  <input type="text" id="store" class="form-control" formControlName="store" />
-										</div>
-									  </div>
-									  
-									  <div class="col-md-6">
-										<div class="form-group">
-										  <label for="ccEmail">CC Mail id</label>
-										  <input type="text" id="ccEmail" class="form-control" formControlName="ccEmail" [ngClass]="{ 'is-invalid': submittedInfo && h.ccEmail.errors }" />
-										  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.ccEmail.errors" class="invalid-feedback">
-											<div *ngIf="h.ccEmail.errors.email">CC Mail id must be a valid email address</div>
-										  </small>
-										</div>
-									  </div>
-									</div>
-									
-									<div class="row">
-									  <div class="col-md-12">
-										<div class="form-group">
-										  <label for="active">Active</label>
-										  <input type="text" id="active" class="form-control" formControlName="active" />
-										</div>
-									  </div>
-									</div>  
-
-									<div class="row">
-									  <div class="col-md-6">
-										<div class="form-group">
-										  <button type="submit" class="btn btn-primary">
-											<i class="la la-check"></i> Create Customer
-										   </button>
-										</div>
-									  </div>
-									  <div class="col-md-6">
-										<div class="form-group">
-										</div>
-									  </div>
-									</div>
+								  </div>
 								</div>
+									
+								<div class="row">
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label for="password">Password<span class="text-danger">*</span></label>
+									  <input type="text" id="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submittedInfo && h.password.errors }" />
+									  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.password.errors" class="invalid-feedback">
+										<div *ngIf="h.password.errors.required">Password is required</div>
+									  </small>
+									</div>
+								  </div>
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label for="spEmail">Salesperson Email Id<span class="text-danger">*</span></label>
+									  <input type="text" id="spEmail" class="form-control" formControlName="spEmail" [ngClass]="{ 'is-invalid': submittedInfo && h.spEmail.errors }" />
+									  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.spEmail.errors" class="invalid-feedback">
+										<div *ngIf="h.spEmail.errors.required">Email is required</div>
+										<div *ngIf="h.spEmail.errors.email">Email must be a valid email address</div>
+									  </small>
+									</div>
+								  </div>
+								</div>
+									
+								<div class="row">
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label for="store"> Store Number </label>
+									  <input type="text" id="store" class="form-control" formControlName="store" />
+									</div>
+								  </div>
+								  
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <label for="ccEmail">CC Mail id</label>
+									  <input type="text" id="ccEmail" class="form-control" formControlName="ccEmail" [ngClass]="{ 'is-invalid': submittedInfo && h.ccEmail.errors }" />
+									  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.ccEmail.errors" class="invalid-feedback">
+										<div *ngIf="h.ccEmail.errors.email">CC Mail id must be a valid email address</div>
+									  </small>
+									</div>
+								  </div>
+								</div>
+								
+								<div class="row">
+								  <div class="col-md-12">
+									<div class="form-group">
+									  <label for="active">Active</label>
+									  <input type="text" id="active" class="form-control" formControlName="active" />
+									</div>
+								  </div>
+								</div>  
+
+								<div class="row">
+								  <div class="col-md-6">
+									<div class="form-group">
+									  <button type="submit" class="btn btn-primary">
+										<i class="la la-check"></i> Create Customer
+									   </button>
+									</div>
+								  </div>
+								  <div class="col-md-6">
+									<div class="form-group">
+									</div>
+								  </div>
+								</div>
+							  </div>
 							</form>
-						   </div>
+						  </div>
 						</section>
-					</div>
+					  </div>
+				    </div>
 				  </div>
-				</div>
-               </div>
+                </div>
               </div>
             </div>
           </div>

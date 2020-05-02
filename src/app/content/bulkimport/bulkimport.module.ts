@@ -15,13 +15,15 @@ import { AssetsComponent } from 'src/app/content/bulkimport/assets/assets.compon
 import { NewSpecialsComponent } from 'src/app/content/bulkimport/new-specials/new-specials.component';
 import { EditNewSpecialsComponent } from 'src/app/content/bulkimport/new-specials/edit-new-specials/edit-new-specials.component';
 import { SalespersonComponent } from 'src/app/content/bulkimport/salesperson/salesperson.component';
-import { ManageImageSequenceComponent } from 'src/app/content/bulkimport/manage-image-sequence/manage-image-sequence.component';
+import { NewArrivalsComponent } from 'src/app/content/bulkimport/new-arrivals/new-arrivals.component';
+//import { ManageImageSequenceComponent } from 'src/app/content/bulkimport/new-specials/manage-image-sequence/manage-image-sequence.component';
+import { EditNewArrivalsComponent } from 'src/app/content/bulkimport/new-arrivals/edit-new-arrivals/edit-new-arrivals.component';
 import { BulkimportComponent } from './bulkimport.component';
 import { BulkimportRoutingModule } from './bulkimport-routing.module';
 
 
 @NgModule({
-  declarations: [ BulkimportComponent, InventoryComponent, PriceComponent, CustomersComponent, SalespersonComponent, ManagerComponent, AssetsComponent, NewSpecialsComponent, EditNewSpecialsComponent, ManageImageSequenceComponent ],
+  declarations: [ BulkimportComponent, InventoryComponent, PriceComponent, CustomersComponent, SalespersonComponent, ManagerComponent, AssetsComponent, NewSpecialsComponent, EditNewSpecialsComponent, NewArrivalsComponent, EditNewArrivalsComponent ],
   imports: [
     CommonModule,
 	NgSelectModule,
@@ -64,9 +66,17 @@ import { BulkimportRoutingModule } from './bulkimport-routing.module';
         path: 'new-specials/edit-new-specials',
         component: EditNewSpecialsComponent
       },
+	  // {
+        // path: 'new-specials/manage-image-sequence',
+        // component: ManageImageSequenceComponent
+      // },
 	  {
-        path: 'manage-image-sequence',
-        component: ManageImageSequenceComponent
+        path: 'new-arrivals',
+        component: NewArrivalsComponent
+      },
+	  {
+        path: 'new-arrivals/edit-new-arrivals',
+        component: EditNewArrivalsComponent
       },
     ])
   ],
