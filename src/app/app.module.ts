@@ -34,6 +34,7 @@ import { ThemeSettingsConfig } from './_layout/settings/theme-settings.config';
 import { MenuSettingsConfig } from './_layout/settings/menu-settings.config';
 import { HeaderComponent } from './_layout/header/header.component';
 import { VerticalComponent as HeaderVerticalComponent } from './_layout/header/vertical/vertical.component';
+import { HorizontalComponent as HeaderHorizontalComponent } from './_layout/header/horizontal/horizontal.component';
 import { FullLayoutNavbarComponent } from './_layout/header/full-layout-navbar/full-layout-navbar.component';
 import { FooterComponent } from './_layout/footer/footer.component';
 import { NavigationComponent as AppNavigationComponent } from './_layout/navigation/navigation.component';
@@ -79,7 +80,7 @@ import { UserService } from './_api/user/user.service';
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule, // imports firebase/firestore, only needed for database features
         AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-         routing,
+        routing,
         // Settings modules
         SettingsModule.forRoot(ThemeSettingsConfig, MenuSettingsConfig),
         PerfectScrollbarModule,
@@ -97,6 +98,7 @@ import { UserService } from './_api/user/user.service';
         PrivateLayoutComponent,
         HeaderComponent,
         FullLayoutNavbarComponent,
+        HeaderHorizontalComponent,
         HeaderVerticalComponent,
         FooterComponent,
         AppNavigationComponent,

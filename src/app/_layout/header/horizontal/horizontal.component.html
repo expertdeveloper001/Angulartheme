@@ -1,44 +1,38 @@
-<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-shadow"
-  [ngClass]="selectedHeaderNavBarClass">
+<!-- fixed-top-->
+<nav
+  class="top-header header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow navbar-static-top navbar-light navbar-brand-center"
+  id="top-header" [ngClass]="selectedHeaderNavBarClass">
   <div class="navbar-wrapper">
-    <div id="navbar-header" class="navbar-header" [ngClass]="selectedNavBarHeaderClass"
-      (mouseenter)="mouseEnter($event)" (mouseleave)="mouseLeave($event)">
+    <div id="navbar-header" class="navbar-header">
       <ul class="nav navbar-nav flex-row">
-        <!-- Remove position relative in responsive -->
-        <li class="nav-item mobile-menu d-lg-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs11"
-            (click)="toggleNavigation($event)">
-            <i class="feather ft-menu font-large-1"></i></a></li>
-        <li class="nav-item mr-auto"><a [routerLink]="['/dashboard/sales']" class="navbar-brand"
-            routerLink="/dashboard/sales"><img class="brand-logo" alt="modern admin logo"
-              [src]="_themeSettingsConfig.brand.logo.value">
+        <li class="nav-item mobile-menu d-md-none mr-auto" ><a
+            class="nav-link nav-menu-main menu-toggle hidden-xs11" (click)="toggleNavigation($event)"><i
+              class="feather ft-menu font-large-1" ></i></a></li>
+        <li class="nav-item"><a [routerLink]="['/dashboard/sales']" class="navbar-brand"><img class="brand-logo" alt="modern admin logo"
+              src="../../../../assets/images/logo/logo.png">
             <h3 class="brand-text">{{_themeSettingsConfig.brand.brand_name}}</h3>
           </a></li>
-        <li class="nav-item d-none d-md-block nav-toggle">
-          <a [routerLink]="" class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"
-            (click)="toggleFixMenu($event)">
-            <i class="feather toggle-icon font-medium-3 white"
-              [ngClass]="{'ft-toggle-left': _themeSettingsConfig.menu == 'collapse','ft-toggle-right': _themeSettingsConfig.menu == 'expand'}"></i>
-          </a>
-        </li>
-        <li class="nav-item d-lg-none"><a class="nav-link open-navbar-container" data-toggle="collapse"
+
+        <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse"
             data-target="#navbar-mobile" (click)="toggleNavbar($event)"><i class="la la-ellipsis-v"></i></a></li>
       </ul>
     </div>
-    <!-- New-->
-    <div class="navbar-container content" [hidden]="isMobile && !showNavbar">
-      <div class="collapse navbar-collapse" id="navbar-mobile">
+    <div class="navbar-container content">
+      <div class="collapse navbar-collapse show" id="navbar-mobile">
         <ul class="nav navbar-nav mr-auto float-left">
+          <li class="nav-item d-none d-md-block"><a [routerLink]="" class="nav-link nav-menu-main menu-toggle hidden-xs"
+              (click)="toggleFixMenu($event)" ><i class="feather ft-menu"></i></a></li>
           <li class="nav-item d-none d-md-block"><a [routerLink]="" class="nav-link nav-link-expand"
-              (click)="toggleFullScreen()" *ngIf="maximize === 'on'"><i class="ficon feather ft-maximize"></i></a></li>
-          <li class="nav-item nav-search"><a [routerLink]="" class="nav-link nav-link-search" (click)="clickSearch()"
-              *ngIf="search === 'on'"><i class="ficon feather ft-search"></i></a>
+              (click)="toggleFullScreen()" *ngIf ="maximize === 'on'"><i class="ficon feather ft-maximize"></i></a></li>
+          <li class="nav-item nav-search"><a [routerLink]="" class="nav-link nav-link-search" (click)="clickSearch()" *ngIf ="search === 'on'"><i
+                class="ficon feather ft-search"></i></a>
             <div class="search-input" [ngClass]="{'open': isHeaderSearchOpen}">
               <input class="input" type="text" placeholder="Explore Nsi...">
             </div>
           </li>
         </ul>
-        <ul class="nav navbar-nav float-right">
-          <!--<li class="dropdown-language nav-item" ngbDropdown *ngIf="internationalization === 'on'">
+        <ul class="nav navbar-nav float-right" >
+          <!--<li class="dropdown-language nav-item" ngbDropdown *ngIf ="internationalization === 'on'">
             <a [routerLink]="" class="dropdown-toggle nav-link" ngbDropdownToggle id="dropdown-flag">
               <i class="flag-icon flag-icon-gb"></i><span class="selected-language"></span>
             </a>
@@ -57,7 +51,7 @@
               </a>
             </div>
           </li>
-          <li class="dropdown-notification nav-item dropdown" ngbDropdown *ngIf="notification === 'on'">
+          <li class="dropdown-notification nav-item dropdown" ngbDropdown *ngIf ="notification === 'on'">
             <a class="nav-link nav-link-label" ngbDropdownToggle>
               <i class="ficon feather ft-bell"></i>
               <span class="badge badge-pill badge-danger badge-up badge-glow">5</span>
@@ -67,11 +61,11 @@
                 <h6 class="dropdown-header m-0"><span class="grey darken-2">Notifications</span></h6><span
                   class="notification-tag badge badge-default badge-danger float-right m-0">5 New</span>
               </li>
-              <li class="scrollable-container media-list w-100 ps-container ps-theme-dark ps-active-y" fxFlex="auto" [perfectScrollbar]="config">
+              <li class="scrollable-container media-list w-100 ps-container ps-theme-dark ps-active-y" fxFlex="auto"
+                [perfectScrollbar]="config">
                 <a href="javascript:void(0)">
                   <div class="media">
-                    <div class="media-left align-self-center"><i
-                        class="feather ft-plus-square icon-bg-circle bg-cyan"></i>
+                    <div class="media-left align-self-center"><i class="feather ft-plus-square icon-bg-circle bg-cyan"></i>
                     </div>
                     <div class="media-body">
                       <h6 class="media-heading">You have new order!</h6>
@@ -107,8 +101,7 @@
                 </a>
                 <a href="javascript:void(0)">
                   <div class="media">
-                    <div class="media-left align-self-center"><i
-                        class="feather ft-check-circle icon-bg-circle bg-cyan"></i>
+                    <div class="media-left align-self-center"><i class="feather ft-check-circle icon-bg-circle bg-cyan"></i>
                     </div>
                     <div class="media-body">
                       <h6 class="media-heading">Complete the task</h6><small>
@@ -119,8 +112,7 @@
                 </a>
                 <a href="javascript:void(0)">
                   <div class="media">
-                    <div class="media-left align-self-center"><i class="feather ft-file icon-bg-circle bg-teal"></i>
-                    </div>
+                    <div class="media-left align-self-center"><i class="feather ft-file icon-bg-circle bg-teal"></i></div>
                     <div class="media-body">
                       <h6 class="media-heading">Generate monthly report</h6><small>
                         <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Last
@@ -133,9 +125,8 @@
                   href="javascript:void(0)">Read all notifications</a></li>
             </ul>
           </li>
-          <li class="dropdown-notification nav-item" ngbDropdown>
-            <a class="nav-link nav-link-label" ngbDropdownToggle *ngIf="email === 'on'"><i
-                class="ficon feather ft-mail"></i></a>
+          <li class="dropdown-notification nav-item" ngbDropdown *ngIf ="email === 'on'">
+            <a class="nav-link nav-link-label" ngbDropdownToggle><i class="ficon feather ft-mail"></i></a>
             <ul class="dropdown-menu-media dropdown-menu-right" ngbDropdownMenu>
               <li class="dropdown-menu-header">
                 <h6 class="dropdown-header m-0"><span class="grey darken-2">Messages</span></h6><span
@@ -146,7 +137,7 @@
                 <a href="javascript:void(0)">
                   <div class="media">
                     <div class="media-left"><span class="avatar avatar-sm avatar-online rounded-circle"><img
-                          src="../../../assets/images/portrait/small/avatar-s-19.png" alt="avatar"><i></i></span></div>
+                          src="../../../../assets/images/portrait/small/avatar-s-19.png" alt="avatar"><i></i></span></div>
                     <div class="media-body">
                       <h6 class="media-heading">Margaret Govan</h6>
                       <p class="notification-text font-small-3 text-muted">I like your portfolio, let's start.</p>
@@ -158,7 +149,7 @@
                 <a href="javascript:void(0)">
                   <div class="media">
                     <div class="media-left"><span class="avatar avatar-sm avatar-busy rounded-circle"><img
-                          src="../../../assets/images/portrait/small/avatar-s-2.png" alt="avatar"><i></i></span></div>
+                          src="../../../../assets/images/portrait/small/avatar-s-2.png" alt="avatar"><i></i></span></div>
                     <div class="media-body">
                       <h6 class="media-heading">Bret Lezama</h6>
                       <p class="notification-text font-small-3 text-muted">I have seen your work, there is</p><small>
@@ -169,7 +160,7 @@
                 <a href="javascript:void(0)">
                   <div class="media">
                     <div class="media-left"><span class="avatar avatar-sm avatar-online rounded-circle"><img
-                          src="../../../assets/images/portrait/small/avatar-s-3.png" alt="avatar"><i></i></span></div>
+                          src="../../../../assets/images/portrait/small/avatar-s-3.png" alt="avatar"><i></i></span></div>
                     <div class="media-body">
                       <h6 class="media-heading">Carie Berra</h6>
                       <p class="notification-text font-small-3 text-muted">Can we have call in this week ?</p><small>
@@ -180,7 +171,7 @@
                 <a href="javascript:void(0)">
                   <div class="media border_bottom">
                     <div class="media-left"><span class="avatar avatar-sm avatar-away rounded-circle"><img
-                          src="../../../assets/images/portrait/small/avatar-s-6.png" alt="avatar"><i></i></span></div>
+                          src="../../../../assets/images/portrait/small/avatar-s-6.png" alt="avatar"><i></i></span></div>
                     <div class="media-body">
                       <h6 class="media-heading">Eric Alsobrook</h6>
                       <p class="notification-text font-small-3 text-muted">We have project party this saturday.</p>
@@ -203,14 +194,13 @@
               <span *ngIf="!currentUser.displayName" class="mr-1 user-name text-bold-700">John Doe</span>
               <span class="avatar avatar-online">
                 <img *ngIf="currentUser.photoURL" src="{{currentUser.photoURL}}" alt="avatar">
-                <img *ngIf="!currentUser.photoURL" src="../../../assets/images/portrait/small/avatar-s-19.png"
+                <img *ngIf="!currentUser.photoURL" src="../../../../assets/images/portrait/small/avatar-s-19.png"
                   alt="avatar">
                 <i></i>
               </span>
             </a>
             <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownProfileMenu">
-              <a class="dropdown-item" [routerLink]="['/user/user-profile']"><i class="feather ft-user"></i> Edit
-                Profile </a>
+              <a class="dropdown-item" [routerLink]="['/user/user-profile']"><i class="feather ft-user"></i> Edit Profile </a>
               <!--<a class="dropdown-item" [routerLink]="['/email']"><i class="feather ft-mail"></i> My Inbox </a>
               <a class="dropdown-item" [routerLink]="['/todos']"><i class="feather ft-check-square"></i> Task </a>
               <a class="dropdown-item" [routerLink]="['/chats']"><i class="feather ft-message-square"></i> Chats </a>-->
@@ -221,6 +211,5 @@
         </ul>
       </div>
     </div>
-    <!-- New-->
   </div>
 </nav>

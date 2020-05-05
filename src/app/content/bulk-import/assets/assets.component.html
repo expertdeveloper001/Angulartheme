@@ -1,0 +1,53 @@
+<div class="app-content content">
+	<div class="content-wrapper">
+		<div class="content-header row mb-1"></div>
+		<div class="content-detached content-right">
+			<div class="content-body">
+				<section class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="col-md-12" *blockUI="'assetsInfo'; message: 'Loading'">
+										<m-card [options]="options" (reloadFunction)="reloadAssetsFileUpload($event)">
+											<ng-container mCardBody>
+												<form class="form-group" [formGroup]="assetsForm" novalidate (ngSubmit)="onSubmit()">
+													<div class="form-body">
+														<h3 class="form-section"><i class="la la-paperclip"></i> Images Upload</h3>
+														<div class="form-group">
+															<h5>Upload file here (jpeg, jpg, png Format Only Supported)</h5>
+															<div class="col-sm-12 col-md-6 mt-1 mb-1">
+																<input type="radio" name="name" formControlName="name" value="brand" />Brand Logo
+																<input type="radio" name="name" formControlName="name" value="part" />Part Image
+															</div>
+															<div class="col-sm-12 col-md-6">
+																<input type="file" class="custom-file-input" formControlName="importFile" id="importFile" (change)="onFileChange($event.target.files)" [ngClass]="{ 'is-invalid': submitted && f.importFile.errors }" accept="image/x-png,image/jpg,image/jpeg">
+																<label class="custom-file-label" #labelInventoryImport for="inputGroupFile01">Choose file</label>
+															</div>
+															<small class="form-text text-muted danger" *ngIf="submitted && f.importFile.errors">
+																<div *ngIf="f.importFile.errors.required">File is required</div>
+															</small>
+														</div>
+													</div>
+													<div class="card-text">
+														<p>PartNumber, PartNumberPrint Column is Must</p>
+													</div>
+													<div class="form-actions">
+														<button type="submit" class="btn btn-primary">
+															<i class="la la-check"></i> Submit
+														</button>
+													</div>
+												</form>
+											</ng-container>
+										</m-card>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->

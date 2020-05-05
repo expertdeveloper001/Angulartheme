@@ -37,7 +37,12 @@ export class UsersComponent implements OnInit {
   rows3: any[] = [];  
   rows4: any[] = [];  
   rows5: any[] = [];
-  deleteRowData: any = [];  
+  deleteRowData: any = []; 
+  sarchBox1:any;  
+  sarchBox2:any;  
+  sarchBox3:any;  
+  sarchBox4:any;  
+  sarchBox5:any;  
   name = 'Angular';
   public imagePath;
   imgURL: any;
@@ -64,6 +69,9 @@ export class UsersComponent implements OnInit {
   singlebasicSelected: any;
   checkAll: any ;
   deleteUserColumn: any;
+  viewPage:any;
+  selectedUser:any;
+  viewModal:any;
 
   public config: PerfectScrollbarConfigInterface = { };
   //public singleSelectArray = selectData.singleSelectArray;
@@ -155,6 +163,14 @@ export class UsersComponent implements OnInit {
     this.deleteUser = this.modal.open(DeleteUser, { windowClass: 'animated fadeInDown' });
   }
   
+  viewTableDataModal(viewTableDataModalContent, row, value) {
+    this.selectedUser = Object.assign({}, row);
+	this.viewPage = value;
+    this.viewModal = this.modal.open(viewTableDataModalContent, {
+      windowClass: 'animated fadeInDown'
+    });
+
+  }
   /**
    * Model for delete.
    *
@@ -199,6 +215,7 @@ export class UsersComponent implements OnInit {
 	const tab = value;
 
 	if(tab === 'all'){
+		this.sarchBox1 = val;
 		this.rows = [...this.temp2];
 		this.temp = [...this.rows];
 		const temp = this.rows.filter(function (d) {
@@ -208,6 +225,7 @@ export class UsersComponent implements OnInit {
 	}
 
 	if(tab === 'admin'){
+		this.sarchBox2 = val;
 		this.rows2 = [...this.temp2Admin];
 		this.tempAdmin = [...this.rows2];
 		const temp = this.rows2.filter(function (d) {
@@ -217,6 +235,7 @@ export class UsersComponent implements OnInit {
 	}
 	
 	if(tab === 'customer'){
+		this.sarchBox3 = val;
 		this.rows3 = [...this.temp2Customer];
 		this.tempCustomer = [...this.rows3];
 		const temp = this.rows3.filter(function (d) {
@@ -226,6 +245,7 @@ export class UsersComponent implements OnInit {
 	}
 	
 	if(tab === 'sp'){
+		this.sarchBox4 = val;
 		this.rows4 = [...this.temp2Sp];
 		this.tempSp = [...this.rows4];
 		const temp = this.rows4.filter(function (d) {
@@ -235,6 +255,7 @@ export class UsersComponent implements OnInit {
 	}
 	
 	if(tab === 'manager'){
+		this.sarchBox5 = val;
 		this.rows5 = [...this.temp2Manager];
 		this.tempManager = [...this.rows5];
 		const temp = this.rows5.filter(function (d) {

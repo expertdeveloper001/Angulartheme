@@ -17,23 +17,6 @@ const appRoutes: Routes = [
       { path: '', component: LoginComponent }
     ]
   },
-  {
-    path: '',
-    component: FullLayoutComponent,
-    children: [
-      { path: 'error', loadChildren: () => import('../app/content/full-pages/error/error.module').then(m => m.ErrorModule),
-       canActivate: [AuthGuard] },
-      {
-        path: 'authentication', loadChildren: () => import('../app/content/full-pages/authentication/authentication.module')
-        .then(m => m.AuthenticationModule),
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'others', loadChildren: () => import('../app/content/full-pages/others/others.module').then(m => m.OthersModule),
-        canActivate: [AuthGuard]
-      },
-    ]
-  },
   // Private layout
   {
     path: '',
@@ -50,13 +33,15 @@ const appRoutes: Routes = [
         path: 'products', loadChildren: () => import('../app/content/products/products.module').then(m => m.ProductsModule),
         canActivate: [AuthGuard]
       },
-      {
-        path: 'bulk', loadChildren: () => import('../app/content/bulkimport/bulkimport.module').then(m => m.BulkimportModule),
-      }
+	  {
+        path: 'bulk-import', loadChildren: () => import('../app/content/bulk-import/bulk-import.module').then(m => m.BulkImportModule),
+        canActivate: [AuthGuard]
+      },
+
     ],
   },
   // otherwise redirect to home
-  { path: '**', redirectTo: 'dashboard/sales' }
+  { path: '**', redirectTo: 'dashboard' }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes, { scrollOffset: [0, 0], scrollPositionRestoration: 'top' });

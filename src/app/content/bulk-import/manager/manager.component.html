@@ -1,0 +1,50 @@
+<div class="app-content content">
+	<div class="content-wrapper">
+		<div class="content-header row mb-1"></div>
+		<div class="content-detached content-right">
+			<div class="content-body">
+				<section class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="col-md-12" *blockUI="'managerInfo'; message: 'Loading'">
+										<m-card [options]="options" (reloadFunction)="reloadManagerFileUpload($event)">
+											<ng-container mCardBody>
+												<form class="form-group" [formGroup]="managerForm" novalidate (ngSubmit)="onSubmit()">
+													<div class="form-body">
+														<h3 class="form-section"><i class="la la-paperclip"></i> Manager Details Upload</h3>
+														
+														<div class="form-group">
+															<h5>Upload file here (.CSV File only Supported)</h5>
+															<div class="col-sm-12 col-md-6">
+																<input type="file" class="custom-file-input" formControlName="importFile" id="importFile" (change)="onFileChange($event.target.files)" accept=".csv" [ngClass]="{ 'is-invalid': submitted && f.importFile.errors }">
+																<label class="custom-file-label" #labelInventoryImport for="inputGroupFile01">Choose file</label>
+															</div>
+															<small class="form-text text-muted danger" *ngIf="submitted && f.importFile.errors">
+																<div *ngIf="f.importFile.errors.required">File is required</div>
+															</small>
+														</div>
+													</div>
+													<div class="card-text">
+														<p>ManagerCode, ManagerPass, ManagerEmail and ManagerDisplayName Columns are Must</p>
+													</div>
+													<div class="form-actions">
+														<button type="submit" class="btn btn-primary">
+															<i class="la la-check"></i> Submit
+														</button>
+													</div>
+												</form>
+											</ng-container>
+										</m-card>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->

@@ -29,7 +29,7 @@ export const MenuSettingsConfig: MenuConfig = {
       {
         title: 'Dashboard',
         icon: 'la-home',
-        page: '/dashboard/sales',
+        page: '/dashboard',
         /*badge: { type: 'badge-info', value: '12' },
         submenu: {
           items: [
@@ -77,12 +77,12 @@ export const MenuSettingsConfig: MenuConfig = {
             {
               title: 'Users',
               icon: 'la-users',
-              page: '/contacts'
+              page: '/users'
             },
 			{
 			  title: 'Products',
 			  icon: 'la-save',
-			  page: '/datatables/styling'
+			  page: '/products'
 			},
             /*{
               title: 'Email Application',
@@ -914,64 +914,63 @@ export const MenuSettingsConfig: MenuConfig = {
         page: '/todos'
       },*/
       {
-		title: 'Users',
-		icon: 'la-users',
-		page: '/users'
-	  },
+        title: 'Users',
+        icon: 'la-users',
+        page: '/users'
+      },
+      {
+        title: 'Products',
+        icon: 'la-save',
+        page: '/products'
+      },
 	  {
-		title: 'Products',
-		icon: 'la-save',
-		page: '/products'
-	  },
-	  {
-        title: 'Bulk Insert',
+        title: 'Bulk Import',
         icon: 'la-life-saver',
         page: 'null',
         submenu: {
           items: [
-           {
+            {
               title: 'Inventory',
-              page: '/bulk/inventory'
+              page: '/bulk-import/inventory'
             },
             {
-              title: 'Price',
-              page: '/bulk/price'
+              title: 'Pricing',
+              page: '/bulk-import/pricing'
             },
-            {
+			{
               title: 'Customers',
-              page: '/bulk/customers'
-            },
-            {
+              page: '/bulk-import/customer'
+            },{
               title: 'SalesPerson',
-              page: '/bulk/salesperson'
+              page: '/bulk-import/salesperson'
             },
 			{
               title: 'Manager',
-              page: '/bulk/manager'
+              page: '/bulk-import/manager'
             },
-			// {
-              // title: 'Mapped Customer',
-              // page: '/bulk/mappedcustomer'
-            // },
+			{
+              title: 'Mapped Customer',
+              page: '/bulk-import/mapped-customer'
+            },
 			{
               title: 'Assets',
-              page: '/bulk/assets'
+              page: '/bulk-import/assets'
             },
 			{
               title: 'New Specials',
-              page: '/bulk/new-specials'
+              page: '/bulk-import/new-specials'
             },
 			{
               title: 'New Arrivals',
-              page: '/bulk/new-arrivals'
+              page: '/bulk-import/new-arrivals'
             },
 			{
               title: 'Featured Brands',
-              page: '/bulk/featured-brands'
+              page: '/bulk-import/featured-brands'
             },
 			{
               title: 'Featured Items',
-              page: '/bulk/featured-items'
+              page: '/bulk-import/featured-items'
             },
           ]
         }

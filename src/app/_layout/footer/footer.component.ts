@@ -15,7 +15,7 @@ export class FooterComponent implements OnInit {
   public showFooter: boolean;
   public fixedFooter: boolean;
   public darkFooter: boolean;
-  public copyRightFooterDate = new Date().getFullYear();
+  public copyRightFooterDate: number;
   private _unsubscribeAll: Subject<any>;
   private _themeSettingsConfig: any;
 
@@ -44,6 +44,7 @@ export class FooterComponent implements OnInit {
   }
 
   ngOnInit() {
+	this.copyRightFooterDate = new Date().getFullYear();
     if ((this.router.url.indexOf('WithNavbar') >= 0) || (this.router.url.indexOf('Advanced') >= 0) ||
       (this.router.url.indexOf('searchPage') >= 0)) {
       this.showFooter = false;

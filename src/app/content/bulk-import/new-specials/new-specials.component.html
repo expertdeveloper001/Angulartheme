@@ -1,0 +1,210 @@
+<div class="app-content content">
+  <div class="content-wrapper">
+    <div class="content-header row mb-1"></div>
+      <div class="content-detached">
+        <div class="content-body">
+          <section class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-content">   
+                  <div class="card-body">
+				    <div class="card">
+					  <h1>Upload New Specials</h1><hr/>	
+					  <form [formGroup]="specialForm" (ngSubmit)="onSubmit()">
+					    <div class="form-body">
+						  <div class="row">
+						    <div class="col-lg-6 col-md-12">
+							  <div class="form-group">
+							    <label for="title">Title <span class="text-danger">*</span></label>
+								<input type="text" id="title" class="form-control" formControlName="title"
+								[ngClass]="{ 'is-invalid': submitted && f.title.errors }" placeholder="title" />
+								<small class="form-text text-muted danger" *ngIf="submitted && f.title.errors" class="invalid-feedback">
+								  <div *ngIf="f.title.errors.required">Title is required</div>
+								</small>
+							  </div>
+						    </div>
+						    <div class="col-lg-6 col-md-12">
+							  <div class="form-group">
+							    <label for="category">Category <span class="text-danger">*</span></label>
+							    <div [ngClass]="{ 'invalid': submitted && f.category.errors }">
+								  <ng-select [items]="multipleSelectArray" formControlName="category" [multiple]="true" placeholder="Select category" bindLabel="item_text" required>
+							      </ng-select>
+								</div>
+							    <small class="form-text text-muted danger" *ngIf="submitted && f.category.errors" class="invalid-feedback" style="display: block;">
+								  <div>category is required</div>
+							    </small>
+							  </div>
+						    </div>
+					      </div>
+					      <div class="row">
+						    <div class="col-lg-6 col-md-12">
+						      <div class="form-group">
+							    <label for="category">Effective Date <span class="text-danger">*</span></label>
+								<div class="input-group">
+								  <input class="form-control" placeholder="yyyy-mm-dd" [ngClass]="{ 'is-invalid': submitted && f.eDate.errors }" name="dp" ngbDatepicker #d2="ngbDatepicker" formControlName="eDate" required>
+								  <div class="input-group-append">
+								    <div class="input-group-text" (click)="d2.toggle()">
+									  <i class="fa fa-calendar" style="cursor: pointer;"></i>
+								    </div>
+								  </div>
+							    </div>
+								<small class="form-text text-muted danger" *ngIf="submitted && f.eDate.errors" class="invalid-feedback" style="display: block;">
+									<div *ngIf="f.eDate.errors.required">Effective Date is required</div>
+								</small>
+							  </div>
+						    </div>
+						    <div class="col-lg-6 col-md-12">
+							  <div class="form-group">
+							    <label>Upload PDF (PDF Format Only Supported)<span class="text-danger">*</span></label>
+							    <div class="custom-file">
+							      <input type="file" class="custom-file-input" formControlName="pdf" [ngClass]="{ 'is-invalid': submitted && f.pdf.errors }" accept=".pdf" >
+							      <label class="custom-file-label" #labelImport for="inputGroupFile01">Choose file</label>
+							      <div *ngIf="submitted && f.pdf.errors" class="invalid-feedback">
+								    <div *ngIf="f.pdf.errors.required">Pdf file required</div>
+							      </div>
+						        </div>
+					          </div>
+				            </div>
+						  </div>	
+						  <div class="row">
+						    <div class="col-lg-6 col-md-12">
+						      <div class="form-group">
+ 							    <label>Upload Thumbnail Image (jpeg, jpg, png Format Only Supported)<span class="text-danger">*</span></label>
+							    <div class="custom-file">
+								  <input type="file" class="custom-file-input" formControlName="thumbnail" [ngClass]="{ 'is-invalid': submitted && f.thumbnail.errors }" accept="image/x-png,image/jpg,image/jpeg" >
+								  <label class="custom-file-label" #labelImport for="inputGroupFile01">Choose file</label>
+								  <div *ngIf="submitted && f.thumbnail.errors" class="invalid-feedback">
+								    <div *ngIf="f.thumbnail.errors.required">Thumbnail is required</div>
+								  </div>
+							    </div>
+							    <span>Please upload Image with 400*300 PX dimension for best viewing experience.</span>
+						      </div>
+						    </div>
+						    <div class="col-md-6" formArrayName="imageArray" *ngFor="let projectForm of projectFormGroup.controls; let i = index;">
+								<div [formGroupName]="i" class="row">
+									<div class="col-md-10">
+										<label for="file">Upload Images (jpeg, jpg, png Only Supported)</label>
+										<div class="form-group">
+											<div class="col-sm-12 col-md-12">
+												<input type="file" class="custom-file-input" formControlName="file" id="file" [ngClass]="{ 'is-invalid': submitted && f.file.errors }">
+												<label class="custom-file-label" #labelNewArrivalsImagesImport for="inputGroupFile01">Choose file</label>
+											</div>
+											<small class="form-text text-muted danger" *ngIf="submitted && f.file.errors" class="invalid-feedback">
+												<div *ngIf="f.file.errors.required">Images File is required</div>
+											</small>
+										</div>
+									</div>
+									<div class="row col-md-2" *ngIf="(i != 0)">
+										<label for="removeFile">&nbsp;</label>
+										<div class="form-group">
+											<div class="col-sm-12 col-md-12">
+												<button type="button" class="btn btn-icon btn-danger mr-1" (click)="removeFile(i)"><i class="feather ft-x"></i></button>
+											</div>
+										</div>
+									</div>
+									<div class="row col-md-2" *ngIf="(i == 0)">
+										<label for="removeFile">&nbsp;</label>
+										<div class="form-group">
+											<div class="col-sm-12 col-md-12">
+												<button type="button" class="btn btn-success" (click)="addFile()">
+													<i class="feather ft-plus"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						  
+						  </div> 
+						  <div class="row">
+						    <div class="col-lg-6 col-md-12">
+							  <div class="form-group">
+							    <button type="submit" class="btn btn-primary">
+								  <i class="la la-check"></i> Submit
+							    </button>
+							  </div>
+						    </div>	
+						  </div>
+					    </div>	
+					  </form>						
+					  <div class="row mt-2">
+					    <div class="col-md-12">
+						  <h1>New Arrivals List</h1><hr/>
+					    </div>
+					    <div class="col-md-12 col-sm-12">
+						  <div class="card-dashboard">
+						    <div class="row">
+							  <div class="col-sm-12 col-md-12">
+								<span class="pull-right">
+								  <div class="dataTables_filter">
+									<h5>Search:<input type='text' style='padding:4px; margin:0px auto; margin-left:8px; width:200px; border-radius: .22rem; border: 1px solid #BABFC7;' placeholder='Search Products' (keyup)='updateFilter($event)' /></h5>
+								  </div>
+								</span>
+							  </div>
+						    </div>
+						  <div class="table table-striped table-bordered base-style">
+							<ngx-datatable class="bootstrap ps" [limit]="6" [rows]="rows" [columnMode]="'force'"
+							  [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" fxFlex="auto" >
+							  <ngx-datatable-column name="Seq" [flexGrow]="1" [minWidth]="90">
+								<ng-template let-row="row" ngx-datatable-cell-template>
+								  {{ row.seq }}
+								</ng-template>
+							  </ngx-datatable-column>
+							  
+							  <ngx-datatable-column name="Title" [flexGrow]="1" [minWidth]="90">
+							  </ngx-datatable-column>
+
+							  <ngx-datatable-column name="Category" [flexGrow]="1" [minWidth]="90">
+							  </ngx-datatable-column>
+
+							  <ngx-datatable-column name="EffectiveDate" [flexGrow]="1" [minWidth]="30">
+							  </ngx-datatable-column>
+
+							  <ngx-datatable-column name="Createdate" [flexGrow]="1" [minWidth]="90">
+							  </ngx-datatable-column>
+
+							  <ngx-datatable-column name="Updatedat" [flexGrow]="1" [minWidth]="90">
+							  </ngx-datatable-column>
+							  
+							  <ngx-datatable-column name="Actions" [flexGrow]="1" [minWidth]="100">
+								<ng-template ngx-datatable-cell-template let-row="row">
+								  <a [routerLink]="" class="primary edit mr-1 mrless" (click)="EditSpecials(row)"><i class="la la-pencil"></i>
+								  </a>  
+								  <a [routerLink]="" class="danger delete mr-1 mrless" (click)="DeleteModel(DeleteRowModel, row)"><i class="la la-trash-o"></i></a>
+							    </ng-template>
+							   </ngx-datatable-column>
+							</ngx-datatable>
+						  </div>
+						  <!-- <button class="float-right btn btn-success" (click)="gotoManageImage()" >Manage Image Sequence</button>   -->
+						</div>
+					  </div>
+					</div>
+				 </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+<!-- Modal -->
+<ng-template #DeleteRowModel let-c="close" let-d="dismiss">
+  <div class="modal-header bg-danger">
+    <h4 class="modal-title white" id="myModalLabel1">Delete Modal</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+	  <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h5>Delete Special</h5>
+    <p>Are you want to delete ?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn grey btn-outline-secondary"
+	  (click)="d('Close modal')">Close</button>
+    <button type="button" class="btn btn-outline-danger" (click)="deleteTableRow()">ok</button>
+  </div>
+</ng-template>

@@ -1,0 +1,682 @@
+<div class="app-content content">
+	<div class="content-wrapper">
+		<div class="content-header row mb-1"></div>
+		<div class="content-detached content-right">
+			<div class="content-body">
+				<section class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="col-md-12" *blockUI="'customerInfo'; message: 'Loading'">
+										<m-card [options]="options" (reloadFunction)="reloadCustomerFileUpload($event)">
+											<ng-container mCardBody>
+												<form [formGroup]="customerForm" (ngSubmit)="customerFileUpload()">
+													<div class="form-body">
+														<h3 class="form-section"><i class="la la-paperclip"></i> Customers Details Upload</h3>
+														
+														<div class="form-group">
+															<h5>Upload file here (.CSV File only Supported)</h5>
+															<div class="col-sm-12 col-md-6">
+																<input type="file" class="custom-file-input" formControlName="importFile" id="importFile" (change)="onFileChange($event.target.files)" [ngClass]="{ 'is-invalid': submitted && f.importFile.errors }" accept=".csv">
+																<label class="custom-file-label" #labelCustomerImport for="inputGroupFile01">Choose file</label>
+															</div>
+															<small class="form-text text-muted danger" *ngIf="submitted && f.importFile.errors" >
+																<div *ngIf="f.importFile.errors.required">File is required</div>
+															</small>
+														</div>
+													</div>
+													<div class="card-text">
+														<p>CustCode, Pass, SalesCode, Active, Store, DeliveryZone, CustomerName, City, State, Zip, CustType, InvoiceEmail, PromotionEmail and StatementEmail Columns are Must</p>
+													</div>
+													<div class="form-actions">
+														<button type="submit" class="btn btn-primary">
+															<i class="la la-check"></i> Submit
+														</button>
+													</div>
+												</form>
+											</ng-container>
+											
+											<ng-container mCardBody>
+												<form [formGroup]="customerStringForm" (ngSubmit)="customerString(addCustomerModel)">
+													<div class="form-body">
+														<h3 class="form-section"><i class="la la-paperclip"></i> Customer Details String</h3>
+														
+														<div class="form-group">
+															<textarea id="customer_details_string" rows="5" class="form-control" formControlName="customer_details_string" placeholder="Customer Details String" [ngClass]="{ 'is-invalid': submittedString && g.customer_details_string.errors }"></textarea>
+															<small class="form-text text-muted danger" *ngIf="submittedString && g.customer_details_string.errors" >
+																<div *ngIf="g.customer_details_string.errors.required"> Customer details string is required</div>
+															</small>
+														</div>
+													</div>
+													<div class="card-text">
+														<p>CustCode, Pass, SalesCode, Active, Store, DeliveryZone, CustomerName, City, State, Zip, CustType, InvoiceEmail, PromotionEmail and StatementEmail Columns are Must</p>
+													</div>
+													<div class="form-actions">
+														<button type="submit" class="btn btn-primary">
+															<i class="la la-check"></i> Submit
+														</button>
+													</div>
+												</form>
+											</ng-container>
+											
+											<ng-container mCardBody>
+												<div class="form-actions text-center" (click)="toggle()">
+													<button type="button" class="btn btn-info btn-min-width mr-1 mb-1">Add / Update</button>
+												</div>
+												<form [formGroup]="customerInfoForm" (ngSubmit)="submitCustomer()" *ngIf="addUpdateCustomerForm">
+												  <div class="form-body">
+													<h4 class="form-section"><i class="feather ft-user"></i> Personal Info</h4>
+													<div class="row">
+													  <div class="col-md-6">
+														<div class="form-group">
+														  <label for="customerCode">Customer Code <span class="text-danger">*</span></label>
+														  <input type="text" id="customerCode" class="form-control" formControlName="customerCode"
+														  [ngClass]="{ 'is-invalid': submittedInfo && h.customerCode.errors }" placeholder="Customer Code" />
+														  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.customerCode.errors"
+														  class="invalid-feedback">
+															<div *ngIf=" h.customerCode.errors.required">
+															  Customer Code is required
+															</div>
+														  </small>
+														</div>
+													  </div>
+													  <div class="col-md-6">
+														<div class="form-group">
+														  <label for="password">Password <span class="text-danger">*</span></label>
+														  <input type="text" id="password" class="form-control" formControlName="password"
+														  [ngClass]="{ 'is-invalid': submittedInfo && h.password.errors }" placeholder="Password" />
+														  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.password.errors" class="invalid-feedback">
+															<div *ngIf="h.password.errors.required">
+															  Password is required
+															</div>
+														  </small>
+														</div>
+													  </div>
+													</div>
+															
+													<div class="row">
+													  <div class="col-md-6">
+														<div class="form-group">
+														  <label for="customerName">Customer Name <span class="text-danger">*</span></label>
+														  <input type="text" id="customerName" class="form-control" formControlName="customerName"
+														  placeholder="Customer Name" [ngClass]="{ 'is-invalid': submittedInfo && h.customerName.errors }" />
+														  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.customerName.errors" class="invalid-feedback">
+															<div *ngIf="h.customerName.errors.required">
+															  Customer name is required
+															</div>
+														  </small>
+														</div>
+													  </div>
+													  <div class="col-md-6">
+														<div class="form-group">
+														  <label for="city">City</label>
+														  <input type="text" id="city" class="form-control" formControlName="city" placeholder="City" />
+														</div>
+													  </div>
+													</div>
+														
+														<div class="row">
+														  <div class="col-md-6">
+															<div class="form-group">
+															  <label for="state">State</label>
+															  <input type="text" id="state" class="form-control" formControlName="state" placeholder="State"/>
+															</div>
+														  </div>
+														  <div class="col-md-6">
+															<div class="form-group">
+															  <label for="zip">Zip</label>
+															  <input type="text" id="zip" class="form-control" formControlName="zip" placeholder="Zip" />
+															</div>
+														  </div>
+														</div>
+														<h4 class="form-section"><i class="la la-paperclip"></i> Requirements</h4>
+														<div class="row">
+														  <div class="col-md-6">
+															<div class="form-group">
+															  <label for="salesCode">Sales Code <span class="text-danger">*</span></label>
+															  <input type="text" id="salesCode" class="form-control" formControlName="salesCode"
+															  [ngClass]="{ 'is-invalid': submittedInfo && h.salesCode.errors }" placeholder="Sales Code" />
+															  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.salesCode.errors" class="invalid-feedback">
+																<div *ngIf="h.salesCode.errors.required">Sales Code
+																is required
+																</div>
+															  </small>
+															</div>
+														  </div>
+														  <div class="col-md-6">
+															<div class="form-group">
+															  <label for="active">Active</label>
+															  <input type="text" id="active" class="form-control" formControlName="active" placeholder="Active" />
+															</div>
+														  </div>
+														</div>
+														
+														<div class="row">
+														  <div class="col-md-6">
+															<div class="form-group">
+															  <label for="deliveryZone"> Delivery Zone </label>
+															  <input type="text" id="deliveryZone" class="form-control" formControlName="deliveryZone"  placeholder="Delivery Zone"/>
+															</div>
+														  </div>
+														  <div class="col-md-6">
+															<div class="form-group">
+															  <label for="store">Store</label>
+															  <input type="text" id="store" class="form-control" formControlName="store" placeholder="Store"/>
+															</div>
+														  </div>
+														</div>
+														
+														<div class="row">
+														  <div class="col-md-12">
+															<div class="form-group">
+															  <label for="custType">Cust Type</label>
+															  <input type="text" id="custType" class="form-control" formControlName="custType" placeholder="Cust Type"/>
+															</div>
+														  </div>
+														</div>  
+														  
+														<h4 class="form-section"><i class="feather ft-mail"></i> Email</h4>
+														<div class="row">
+														  <div class="col-md-6">
+															<div class="form-group">
+															  <label for="invoiceEmail">Invoice Email <span class="text-danger">*</span></label>
+															  <input type="email" id="invoiceEmail" class="form-control" formControlName="invoiceEmail" 
+															  [ngClass]="{ 'is-invalid': submittedInfo && h.invoiceEmail.errors }" placeholder="Invoice Email" />
+															  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.invoiceEmail.errors" class="invalid-feedback">
+																<div *ngIf="h.invoiceEmail.errors.required">Invoice Email
+																  is required</div>
+																<div *ngIf="h.invoiceEmail.errors.email">Invoice Mail id must be a valid email address</div>
+															  </small>
+															</div>
+														  </div>
+														
+														  <div class="col-md-6">
+															<div class="form-group">
+															  <label for="promotionEmail">Promotion Email</label>
+															  <input type="email" id="promotionEmail" class="form-control" formControlName="promotionEmail" placeholder="Promotion Email" />
+															  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.promotionEmail.errors" class="invalid-feedback">
+																<div *ngIf="h.promotionEmail.errors.email">Promotion Email id must be a valid email address</div>
+															  </small>
+															</div>
+														  </div>
+														</div>  
+														<div class="row">
+														  <div class="col-md-6">
+															<div class="form-group">
+															  <label for="statementEmail">Statement Email</label>
+															  <input type="email" id="statementEmail" class="form-control" formControlName="statementEmail" placeholder="Statement Email" />
+															  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.statementEmail.errors" class="invalid-feedback">
+																<div *ngIf="h.statementEmail.errors.email">Statement Email id must be a valid email address</div>
+															  </small>
+															</div>
+														  </div>
+														
+														  <div class="col-md-6">
+															<div class="form-group">
+															  <label for="multiEmail">Multi Email</label>
+															  <input type="email" id="multiEmail" class="form-control" formControlName="multiEmail" placeholder="Multi Email" />
+															  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.multiEmail.errors" class="invalid-feedback">
+																<div *ngIf="h.multiEmail.errors.email">Multi Email id must be a valid email address</div>
+															  </small>
+															</div>
+														  </div>
+														</div>
+														
+														<div class="row">
+														  <div class="col-md-6">
+															<div class="form-group">
+															  <button type="submit" class="btn btn-primary">
+																<i class="la la-check"></i> Create Customer
+															  </button>
+															</div>
+														  </div>
+														  <div class="col-md-6">
+															<div class="form-group"> 
+															</div>
+														  </div>
+														</div>
+													</div>
+												</form>
+											</ng-container>
+										</m-card>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+<ng-template #addCustomerModel let-c="close" let-d="dismiss">
+<div class="modal-header">
+  <h4 class="modal-title" id="myModalLabel1">Add Customer (If you want to manually enter the value, double click on the customer's details)</h4>
+  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+	<span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+	<div class="row">
+	  <div class="col-md-6 col-sm-6">
+	    <b>Customer 1</b>
+	  </div>
+
+	  <div class="col-md-6 col-sm-6">
+	    <button class="btn btn-info btn-sm float-right" (click)="editCustomer()">{{modelBtn}}</button>
+	  </div>
+	</div>
+	
+	<div class="row" *ngIf="!editFormshow">
+	  <div class="col-md-10 col-sm-10 ml-5 mr-5">
+	    <div class="table-responsive">
+		   <table class="table table-borderless">
+			<tbody>
+			<tr>
+			  <td>CustCode</td>
+			  <td>CustCode</td>
+			</tr>
+			
+			<tr>
+			  <td>Pass</td>
+			  <td>Pass</td>
+			</tr>
+			
+			<tr>
+			  <td>SalesCode</td>
+			  <td>SalesCode</td>
+			</tr>
+			
+			<tr>
+			  <td>Active</td>
+			  <td>Active</td>
+			</tr>
+			
+			<tr>
+			  <td>Store</td>
+			  <td>Store</td>
+			</tr>
+			
+			<tr>
+			  <td>DeliveryZone</td>
+			  <td>DeliveryZone</td>
+			</tr>
+			
+			<tr>
+			  <td>CustomerName</td>
+			  <td>CustomerName</td>
+			</tr>
+			
+			<tr>
+			  <td>City</td>
+			  <td>City</td>
+			</tr>
+			
+			<tr>
+			  <td>State</td>
+			  <td>State</td>
+			</tr>
+			
+			<tr>
+			  <td>Zip</td>
+			  <td>Zip</td>
+			</tr>
+			
+			<tr>
+			  <td>CustType</td>
+			  <td>CustType</td>
+			</tr>
+			
+			<tr>
+			  <td>InvoiceEmail</td>
+			  <td>InvoiceEmail</td>
+			</tr>
+			
+			<tr>
+			  <td>PromotionEmail</td>
+			  <td>PromotionEmail</td>
+			</tr>
+			
+			<tr>
+			  <td>StatementEmail</td>
+			  <td>StatementEmail</td>
+			</tr>
+			</tbody>
+		  </table>
+		</div>
+	  </div>
+	</div>
+	
+	<div class="row" *ngIf="editFormshow">
+	  <div class="col-md-10 col-sm-10 ml-5 mr-5">
+	    <div class="table-responsive">
+		   <table class="table table-borderless">
+			<tbody>
+			<tr>
+			  <td><input type="text" class="form-control" value="CustCode" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			
+			<tr>
+			  <td><input type="text" class="form-control" value="Pass" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			
+			<tr>
+			  <td><input type="text" class="form-control" value="SalesCode" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			
+			<tr>
+			  <td><input type="text" class="form-control" value="Active" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			
+			<tr>
+			  <td><input type="text" class="form-control" value="Store" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			
+			<tr>
+			  <td><input type="text" class="form-control" value="DeliveryZone" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			
+			<tr>
+			  <td><input type="text" class="form-control" value="CustomerName" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			
+			<tr>
+			  <td><input type="text" class="form-control" value="City" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			
+			<tr>
+			  <td><input type="text" class="form-control" value="State" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			
+			<tr>
+			  <td><input type="text" class="form-control" value="Zip" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			
+			<tr>
+			  <td><input type="text" class="form-control" value="CustType" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			
+			<tr>
+			  <td><input type="text" class="form-control" value="InvoiceEmail" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			
+			<tr>
+			  <td><input type="text" class="form-control" value="PromotionEmail" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			
+			<tr>
+			  <td><input type="text" class="form-control" value="StatementEmail" /></td>
+			  <td>
+			     <select class="form-control">
+			       <option>CustCode</option>
+			       <option>Pass</option>
+			       <option>SalesCode</option>
+			       <option>Active</option>
+			       <option>Store</option>
+			       <option>DeliveryZone</option>
+			       <option>CustomerName</option>
+			       <option>City</option>
+			       <option>State</option>
+			       <option>Zip</option>
+			       <option>CustType</option>
+			       <option>InvoiceEmail</option>
+			       <option>PromotionEmail</option>
+			       <option>StatementEmail</option>
+				 </select>
+			  </td>
+			</tr>
+			</tbody>
+		  </table>
+		</div>
+	  </div>
+	</div>
+	<div class="row">
+	   <div class="col-md-12 col-sm-12">
+	     <button type="button" class="btn btn-danger btn-sm float-right" (click)="abortCustomer()">Abort</button>   
+		 <button type="button" class="btn btn-info btn-sm float-right mr-1" (click)="addCustomer()">Insert</button>
+	   </div>
+	</div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn grey btn-outline-secondary"
+	(click)="addCustomers()" ngbAutofocus>InsertAll</button>
+  <button type="button" class="btn grey btn-outline-secondary"
+	(click)="d('Close modal')" ngbAutofocus>Close</button>
+</div>
+</ng-template>

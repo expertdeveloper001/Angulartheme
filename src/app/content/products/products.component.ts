@@ -13,58 +13,42 @@ import { TableApiService } from 'src/app/_services/table-api.service';
 })
 export class ProductsComponent implements OnInit {
 
-  @BlockUI('productStyle') blockUIProductStyle: NgBlockUI;
-  
+  @BlockUI('baseStyle') blockUIBaseStyle: NgBlockUI;
+  @BlockUI('noStylingClasses') blockUINoStylingClasses: NgBlockUI;
+
   public config: PerfectScrollbarConfigInterface = { suppressScrollY : true };
-  
   @ViewChild(PerfectScrollbarComponent) componentRef?: PerfectScrollbarComponent;
   @ViewChild(PerfectScrollbarDirective, { static: true }) directiveRef?: PerfectScrollbarDirective;
 
-  @Output() closeModalEvent = new EventEmitter<boolean>();
-  @ViewChild(DatatableComponent, { static: true }) table: DatatableComponent;
-
-  options = {
-    close: true,
-    expand: true,
-    minimize: true,
-    reload: true
-  };
   temp = [];
 
-  constructor(private tableApiservice: TableApiService, private modalService: NgbModal) { }
+  @ViewChild(DatatableComponent, { static: true }) table: DatatableComponent;
+
+  constructor(
+      private tableApiservice: TableApiService,
+      private modal: NgbModal,
+  ) { }
+
   public breadcrumb: any;
   data: any;
   rows: any;
+  deleteRecords: any;
+  stylerows: any;
+  baserows: any;
   temp2 = this.rows;
 
   ngOnInit() {
-    this.breadcrumb = {
-      'mainlabel': 'Styling DataTable',
-      'links': [
-        {
-          'name': 'Home',
-          'isLink': true,
-          'link': '/dashboard/sales'
-        },
-        {
-          'name': 'DataTables',
-          'isLink': true,
-          'link': '#'
-        },
-        {
-          'name': 'Styling DataTable',
-          'isLink': false
-        }
-      ]
-    };
+
       this.tableApiservice.getStylingData().subscribe(Response => {
       this.data = Response;
       this.getTabledata();
       });
   }
-  
   getTabledata() {
     this.rows = this.data.rows;
+    this.temp2 = this.data.rows;
+    this.stylerows = this.data.stylerows;
+    this.baserows = this.data.baserows;
   }
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
@@ -72,30 +56,42 @@ export class ProductsComponent implements OnInit {
     this.temp = [...this.rows];
     // filter our data
     const temp = this.rows.filter(function (d) {
-      return d.PartNo.toLowerCase().indexOf(val) !== -1 ||
-      d.PartPrint.toLowerCase().indexOf(val) !== -1 ||
-      d.PartOERef.toLowerCase().indexOf(val) !== -1 ||
-      d.PartAlternate.toLowerCase().indexOf(val) !== -1 ||
-      d.PartDescription.toLowerCase().indexOf(val) !== -1 ||
+      return d.partNo.toLowerCase().indexOf(val) !== -1 ||
+      d.partPrint.toLowerCase().indexOf(val) !== -1 ||
+      d.partOERef.toLowerCase().indexOf(val) !== -1 ||
+      d.partAlternate.toLowerCase().indexOf(val) !== -1 ||
+      d.partDescription.toLowerCase().indexOf(val) !== -1 ||
       !val;
     });
     // update the rows
     this.rows = temp;
     // Whenever the filter changes, always go back to the first page
-    this.table.offset = 0;
+    //this.table.offset = 0;
 
   }
   
-  reloadProductStyle() {
-    this.blockUIProductStyle.start('Loading..');
+  DeleteRecordsModel(DeleteModel){
+	this.deleteRecords = this.modal.open(DeleteModel, { windowClass: 'animated fadeInDown' });
+  }
+  
+  DeleteAllRecords(){
+	this.rows = []; 
+    this.deleteRecords.close();
+  }
+ 
+  reloadBaseStyle() {
+    this.blockUIBaseStyle.start('Loading..');
 
     setTimeout(() => {
-      this.blockUIProductStyle.stop();
+      this.blockUIBaseStyle.stop();
     }, 2500);
   }
 
-  deleteCheckedRow(DangerModelContent) {
-    this.modalService.open(DangerModelContent, { windowClass: 'animated fadeInDown' });
-  }
+  reloadNoStylingClasses() {
+    this.blockUINoStylingClasses.start('Loading..');
 
+    setTimeout(() => {
+      this.blockUINoStylingClasses.stop();
+    }, 2500);
+  }
 }

@@ -1,0 +1,146 @@
+<div class="app-content content">
+	<div class="content-wrapper">
+		<div class="content-header row mb-1"></div>
+		<div class="content-detached content-right">
+			<div class="content-body">
+				<section class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="col-md-12" *blockUI="'customerInfo'; message: 'Loading'">
+										<m-card [options]="options" (reloadFunction)="reloadCustomerFileUpload($event)">
+											<ng-container mCardBody>
+												<form class="form-group" [formGroup]="spFileForm" novalidate (ngSubmit)="onSubmit()">
+													<div class="form-body">
+														<h3 class="form-section"><i class="la la-paperclip"></i> Sales Person Details Upload</h3>
+														
+														<div class="form-group">
+															<h5>Upload file here (.CSV File only Supported)</h5>
+															<div class="col-sm-12 col-md-6">
+																<input type="file" class="custom-file-input" formControlName="importFile" id="importFile" (change)="onFileChange($event.target.files)" [ngClass]="{ 'is-invalid': submitted && f.importFile.errors }" accept=".csv">
+																<label class="custom-file-label" #labelCustomerImport for="inputGroupFile01">Choose file</label>
+															</div>
+															<small class="form-text text-muted danger" *ngIf="submitted && f.importFile.errors" >
+																<div *ngIf="f.importFile.errors.required">File is required</div>
+															</small>
+														</div>
+													</div>
+													<div class="card-text">
+														<p>SalesCode,SalesEmail and SalesDisplayName Columns are Must</p>
+													</div>
+													<div class="form-actions">
+														<button type="submit" class="btn btn-primary">
+															<i class="la la-check"></i> Submit
+														</button>
+													</div>
+												</form>
+											</ng-container>
+											
+											<ng-container mCardBody>
+												<div class="form-actions text-center" (click)="toggle()">
+													<button type="button" class="btn btn-info btn-min-width mr-1 mb-1">Add / Update</button>
+												</div>
+												<form *ngIf="showForm" [formGroup]="spInfoForm" (ngSubmit)="submitspInfo()">
+												  <div class="form-body">
+													<h4 class="form-section"><i class="feather ft-user"></i> Sales Persona Info</h4>
+													<div class="row">
+													  <div class="col-md-6">
+														<div class="form-group">
+														  <label for="spCode">Salesperson Code<span class="text-danger">*</span></label>
+															<input type="text" id="spCode" class="form-control" formControlName="spCode"
+															[ngClass]="{ 'is-invalid': submittedInfo && h.spCode.errors }" />
+															<small class="form-text text-muted danger" *ngIf="submittedInfo && h.spCode.errors" class="invalid-feedback">
+															  <div *ngIf="h.spCode.errors.required">Salesperson Code is required</div>
+															</small>
+														</div>
+													  </div>
+													  <div class="col-md-6">
+														<div class="form-group">
+														  <label for="spName">Salesperson Name<span class="text-danger">*</span></label>
+														  <input type="text" id="password" class="form-control" formControlName="spName" [ngClass]="{ 'is-invalid': submittedInfo && h.spName.errors }" />
+														  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.spName.errors" class="invalid-feedback">
+															<div *ngIf="h.spName.errors.required">Salesperson Name is required</div>
+														  </small>
+														</div>
+													  </div>
+													</div>
+														
+													<div class="row">
+													  <div class="col-md-6">
+														<div class="form-group">
+														  <label for="password">Password<span class="text-danger">*</span></label>
+														  <input type="text" id="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submittedInfo && h.password.errors }" />
+														  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.password.errors" class="invalid-feedback">
+															<div *ngIf="h.password.errors.required">Password is required</div>
+														  </small>
+														</div>
+													  </div>
+													  <div class="col-md-6">
+														<div class="form-group">
+														  <label for="spEmail">Salesperson Email Id<span class="text-danger">*</span></label>
+														  <input type="text" id="spEmail" class="form-control" formControlName="spEmail" [ngClass]="{ 'is-invalid': submittedInfo && h.spEmail.errors }" />
+														  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.spEmail.errors" class="invalid-feedback">
+															<div *ngIf="h.spEmail.errors.required">Email is required</div>
+															<div *ngIf="h.spEmail.errors.email">Email must be a valid email address</div>
+														  </small>
+														</div>
+													  </div>
+													</div>
+														
+													<div class="row">
+													  <div class="col-md-6">
+														<div class="form-group">
+														  <label for="store"> Store Number </label>
+														  <input type="text" id="store" class="form-control" formControlName="store" />
+														</div>
+													  </div>
+													  
+													  <div class="col-md-6">
+														<div class="form-group">
+														  <label for="ccEmail">CC Mail id</label>
+														  <input type="text" id="ccEmail" class="form-control" formControlName="ccEmail" [ngClass]="{ 'is-invalid': submittedInfo && h.ccEmail.errors }" />
+														  <small class="form-text text-muted danger" *ngIf="submittedInfo && h.ccEmail.errors" class="invalid-feedback">
+															<div *ngIf="h.ccEmail.errors.email">CC Mail id must be a valid email address</div>
+														  </small>
+														</div>
+													  </div>
+													</div>
+													
+													<div class="row">
+													  <div class="col-md-12">
+														<div class="form-group">
+														  <label for="active">Active</label>
+														  <input type="text" id="active" class="form-control" formControlName="active" />
+														</div>
+													  </div>
+													</div>  
+
+													<div class="row">
+													  <div class="col-md-6">
+														<div class="form-group">
+														  <button type="submit" class="btn btn-primary">
+															<i class="la la-check"></i> Create Sales Person
+														   </button>
+														</div>
+													  </div>
+													  <div class="col-md-6">
+														<div class="form-group">
+														</div>
+													  </div>
+													</div>
+												  </div>
+												</form>
+											</ng-container>
+										</m-card>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->

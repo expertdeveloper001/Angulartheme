@@ -66,7 +66,7 @@
 							<span class="pull-right"> Search :
 							 <input type='search'
 							 style='padding:8px;margin:15px auto;width:200px;height: calc(1.875rem + 2px);border-radius: 0.21rem;border: 1px solid #babfc7;'
-							 (keyup)="updateFilter($event, 'all')" /></span>
+							 (keyup)="updateFilter($event, 'all')" value="{{ sarchBox1 }}" /></span>
 						  </div>
 						</div>
 						<ngx-datatable #table class="bootstrap row contacts-table" [rows]="rows" [columnMode]="'force'" [headerHeight]="50"
@@ -113,9 +113,8 @@
 						  </ngx-datatable-column>
 						  <ngx-datatable-column name="Actions" [flexGrow]="1" [minWidth]="100">
 						    <ng-template ngx-datatable-cell-template let-row="row">
-							  <a [routerLink]="" class="primary edit mr-1 mrless"
-							  (click)="editTableDataModal(editTableDataModalContent, row)"><i class="la la-pencil"></i>
-							  </a>  
+							  <a [routerLink]="" class="info view mr-1 mrless"><i class="la la-eye" (click)="viewTableDataModal(viewTableDataModalContent, row, 'all')"></i></a>
+							  <a [routerLink]="" class="primary edit mr-1 mrless" (click)="editTableDataModal(editTableDataModalContent, row)"><i class="la la-pencil"></i></a>  
 							  <a [routerLink]="" class="danger delete mr-1 mrless" (click)="DeleteUserModel(DeleteUser, row, 'all')"><i class="la la-trash-o"></i></a>
 						    </ng-template>
 						  </ngx-datatable-column>
@@ -157,7 +156,7 @@
 								</div>	
 								<span class="pull-right"> Search :
 							       <input type='search'
-								   style='padding:8px;margin:15px auto;width:200px;height: calc(1.875rem + 2px);border-radius: 0.21rem;border: 1px solid #babfc7;' (keyup)="updateFilter($event, 'admin')" />
+								   style='padding:8px;margin:15px auto;width:200px;height: calc(1.875rem + 2px);border-radius: 0.21rem;border: 1px solid #babfc7;' (keyup)="updateFilter($event, 'admin')" value="{{ sarchBox2 }}" />
 								</span>
 							</div>
 						  </div>
@@ -205,6 +204,7 @@
 							</ngx-datatable-column>
 							<ngx-datatable-column name="Actions" [flexGrow]="1" [minWidth]="100">
 							  <ng-template ngx-datatable-cell-template let-row="row">
+								<a [routerLink]="" class="info view mr-1 mrless"><i class="la la-eye" (click)="viewTableDataModal(viewTableDataModalContent, row, 'admin')"></i></a>
 								<a [routerLink]="" class="primary edit mr-1 mrless"
 								  (click)="editTableDataModal(editTableDataModalContent, row)"><i class="la la-pencil"></i>
 								</a>
@@ -252,7 +252,7 @@
 									Search :
 									<input type='search'
 									  style='padding:8px;margin:15px auto;width:200px;height: calc(1.875rem + 2px);border-radius: 0.21rem;border: 1px solid #babfc7;'
-									  (keyup)="updateFilter($event, 'customer')" /></span>
+									  (keyup)="updateFilter($event, 'customer')" value="{{ sarchBox3 }}" /></span>
 								</div>
 							</div>
 							<ngx-datatable #table class="bootstrap row contacts-table" [rows]="rows3" [columnMode]="'force'" [headerHeight]="50"
@@ -299,6 +299,7 @@
 							</ngx-datatable-column>
 							<ngx-datatable-column name="Actions" [flexGrow]="1" [minWidth]="100">
 							  <ng-template ngx-datatable-cell-template let-row="row">
+								<a [routerLink]="" class="info view mr-1 mrless"><i class="la la-eye" (click)="viewTableDataModal(viewTableDataModalContent, row, 'customer')"></i></a>
 								<a [routerLink]="" class="primary edit mr-1 mrless"
 								  (click)="editTableDataModal(editTableDataModalContent, row)"><i class="la la-pencil"></i>
 								</a>
@@ -346,7 +347,7 @@
 									Search :
 									<input type='search'
 									  style='padding:8px;margin:15px auto;width:200px;height: calc(1.875rem + 2px);border-radius: 0.21rem;border: 1px solid #babfc7;'
-									  (keyup)="updateFilter($event, 'sp')" /></span>
+									  (keyup)="updateFilter($event, 'sp')" value="{{ sarchBox4 }}" /></span>
 								</div>
 							</div>
 							<ngx-datatable #table class="bootstrap row contacts-table" [rows]="rows4" [columnMode]="'force'" [headerHeight]="50"
@@ -393,6 +394,7 @@
 							</ngx-datatable-column>
 							<ngx-datatable-column name="Actions" [flexGrow]="1" [minWidth]="100">
 							  <ng-template ngx-datatable-cell-template let-row="row">
+								<a [routerLink]="" class="info view mr-1 mrless"><i class="la la-eye" (click)="viewTableDataModal(viewTableDataModalContent, row, 'sp')"></i></a>
 								<a [routerLink]="" class="primary edit mr-1 mrless"
 								  (click)="editTableDataModal(editTableDataModalContent, row)"><i class="la la-pencil"></i>
 								</a>
@@ -441,7 +443,7 @@
 									Search :
 									<input type='search'
 									  style='padding:8px;margin:15px auto;width:200px;height: calc(1.875rem + 2px);border-radius: 0.21rem;border: 1px solid #babfc7;'
-									  (keyup)="updateFilter($event, 'manager')" /></span>
+									  (keyup)="updateFilter($event, 'manager')" value="{{ sarchBox5 }}" /></span>
 								</div>
 							</div>
 							<ngx-datatable #table class="bootstrap row contacts-table" [rows]="rows5" [columnMode]="'force'" [headerHeight]="50"
@@ -488,6 +490,7 @@
 							</ngx-datatable-column>
 							<ngx-datatable-column name="Actions" [flexGrow]="1" [minWidth]="100">
 							  <ng-template ngx-datatable-cell-template let-row="row">
+								<a [routerLink]="" class="info view mr-1 mrless"><i class="la la-eye" (click)="viewTableDataModal(viewTableDataModalContent, row, 'manager')"></i></a>
 								<a [routerLink]="" class="primary edit mr-1 mrless"
 								  (click)="editTableDataModal(editTableDataModalContent, row)"><i class="la la-pencil"></i>
 								</a>
@@ -609,6 +612,42 @@
     </div>
   </form>
 </ng-template>
+
+<ng-template #viewTableDataModalContent let-c="close" let-d="dismiss">
+  <form (ngSubmit)="onUpdate(viewForm,selectedUser.id)" #viewForm="ngForm">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">View User</h5>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+		<div class="form-group col-12">
+			<label>Username: </label>
+			<div>{{selectedUser.username}}</div>
+		</div>
+      <div class="form-group col-12">
+		<label>Name: </label>
+        <div>{{selectedUser.name}}</div>
+      </div>
+      <div class="form-group col-12">
+		<label>Email: </label>
+        <div>{{selectedUser.email}}</div>
+      </div>
+      <div class="form-group col-12">
+		<label>Role: </label>
+        <div>{{selectedUser.role}}</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="form-group position-relative has-icon-left mb-0">
+        <button type="button" class="btn grey btn-outline-secondary"
+		(click)="d('Close modal')">Close</button>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
 
 <!-- Modal -->
 <ng-template #DeleteUser let-c="close" let-d="dismiss">
